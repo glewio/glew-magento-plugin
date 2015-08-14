@@ -1,0 +1,36 @@
+<?php
+
+class Glew_Service_Model_Types_Customers 
+{
+    public $customers;
+    
+    public function load($pageSize,$pageNum,$startDate = null,$endDate = null)
+    {
+        $helper = Mage::helper('glew');
+        $config = $helper->getConfig();
+        $from = date('Y-m-d 00:00:00', strtotime($startDate));
+        $to = date('Y-m-d 23:59:59', strtotime($endDate));
+
+        $collection = Mage::getModel('customer/customer')->getCollection()
+            ->addAttributeToFilter('updated_at', array('from'=>$from, 'to'=>$to));
+        $collection->setCurPage($pageNum);
+        $collection->setPageSize($pageSize);
+        $this->pageNum = $pageNum;
+
+        if($collection->getLastPageNumber() < $pageNum){
+          return $this;
+        }
+        foreach($collection as $customer) {
+            $customer = Mage::getModel('customer/customer')->load($customer->getId());
+            if ($customer && $customer->getId()) {
+                $model = Mage::getModel('glew/types_customer')->parseCustomer($customer);
+                if ($model) {
+                    $this->customers[] = $model;
+                }
+            }
+        }
+        
+        return $this;
+    }
+    
+}
