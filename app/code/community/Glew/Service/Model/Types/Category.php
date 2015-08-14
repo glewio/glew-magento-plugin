@@ -2,7 +2,7 @@
 
 class Glew_Service_Model_Types_Category
 {
-    public function parseCategory($category)
+    public function parse($category)
     {
         $category = Mage::getModel('catalog/category')->load($category->getId());
         $this->category_id = $category->getId();

@@ -21,7 +21,7 @@ class Glew_Service_Model_Types_Categories
         }
         
         foreach ($categories as $category){
-        	$model = Mage::getModel('glew/types_category')->parseCategory($category);
+        	$model = Mage::getModel('glew/types_category')->parse($category);
         	if ($model) {
         		$this->categories[] = $model;
         	}   

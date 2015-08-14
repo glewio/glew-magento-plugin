@@ -24,7 +24,7 @@ class Glew_Service_Model_Types_Products
         
         foreach ($products as $product){
             $productId = $product->getId();
-            $model = Mage::getModel('glew/types_product')->parseProduct($productId, $this->productAttributes);
+            $model = Mage::getModel('glew/types_product')->parse($productId, $this->productAttributes);
         	if ($model) {
         		$this->products[] = $model;
         	}   

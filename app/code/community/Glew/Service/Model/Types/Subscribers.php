@@ -18,7 +18,7 @@ class Glew_Service_Model_Types_Subscribers
         }
         
         foreach ($subscribers as $subscriber){
-        	$model = Mage::getModel('glew/types_subscriber')->parseSubscriber($subscriber);
+        	$model = Mage::getModel('glew/types_subscriber')->parse($subscriber);
         	if ($model) {
         		$this->subscribers[] = $model;   
         	}   

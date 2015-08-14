@@ -3,7 +3,7 @@
          <glew translate="title" module="glew">
             <title>Glew</title>
             <sort_order>50</sort_order>
-            <action>glew/module/register</action>
+            <action>glew/module/gotoglew</action>
         </glew>
    </menu>
    <acl>

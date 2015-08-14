@@ -11,7 +11,7 @@ class Glew_Service_Model_Types_Stores
 
         $stores = Mage::app()->getStores();
         foreach ($stores as $store){
-        	$model = Mage::getModel('glew/types_store')->parseStore($store);
+        	$model = Mage::getModel('glew/types_store')->parse($store);
         	if ($model) {
         		$this->stores[] = $model;   
         	}   

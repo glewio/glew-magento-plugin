@@ -2,7 +2,7 @@
 
 class Glew_Service_Model_Types_Customer 
 {
-    public function parseCustomer($customer)
+    public function parse($customer)
     {
         if (!$customer) {
             return $this;
@@ -23,11 +23,11 @@ class Glew_Service_Model_Types_Customer
         $this->addresses = array();
 
         if ($customer->getPrimaryShippingAddress()) {
-            $address = Mage::getModel('glew/types_address')->parseAddress($customer->getPrimaryShippingAddress());
+            $address = Mage::getModel('glew/types_address')->parse($customer->getPrimaryShippingAddress());
             if ($address) {
                 $this->addresses[] = $address;
             } else {
-                $address = Mage::getModel('glew/types_address')->parseAddress($customer->getPrimaryBillingAddress());
+                $address = Mage::getModel('glew/types_address')->parse($customer->getPrimaryBillingAddress());
                 $this->addresses[] = $address;
             }
         }else{

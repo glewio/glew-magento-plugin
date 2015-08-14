@@ -32,7 +32,7 @@ class Glew_Service_Model_Types_AbandonedCarts
 
         foreach($collection as $cart) {
             if ($cart) {
-                $model = Mage::getModel('glew/types_abandonedCart')->parseCart($cart);
+                $model = Mage::getModel('glew/types_abandonedCart')->parse($cart);
                 if ($model) {
                     $this->carts[] = $model;
                 }

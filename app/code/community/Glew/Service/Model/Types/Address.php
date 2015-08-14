@@ -18,7 +18,7 @@ class Glew_Service_Model_Types_Address
 	public $telephone;
 	public $fax;
     
-    public function parseAddress($address)
+    public function parse($address)
     {
 		$this->address_type = $address['address_type'] == self::BILLING_ADDRESS_TYPE ? 'billing' : 'shipping';
 		$this->firstname = $address['firstname'];

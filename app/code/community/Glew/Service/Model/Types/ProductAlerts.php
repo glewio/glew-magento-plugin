@@ -30,7 +30,7 @@ class Glew_Service_Model_Types_ProductAlerts
         }
 
         foreach ($alerts as $alert){
-            $model = Mage::getModel('glew/types_productAlert')->parseAlert($alert);
+            $model = Mage::getModel('glew/types_productAlert')->parse($alert);
             if ($model) {
                 $this->alerts[] = $model;
             }

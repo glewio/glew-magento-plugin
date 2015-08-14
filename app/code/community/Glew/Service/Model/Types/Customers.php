@@ -23,7 +23,7 @@ class Glew_Service_Model_Types_Customers
         foreach($collection as $customer) {
             $customer = Mage::getModel('customer/customer')->load($customer->getId());
             if ($customer && $customer->getId()) {
-                $model = Mage::getModel('glew/types_customer')->parseCustomer($customer);
+                $model = Mage::getModel('glew/types_customer')->parse($customer);
                 if ($model) {
                     $this->customers[] = $model;
                 }

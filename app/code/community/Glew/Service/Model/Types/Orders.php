@@ -19,7 +19,7 @@ class Glew_Service_Model_Types_Orders
         }
         foreach($collection as $order) {
             if ($order && $order->getId()) {
-                $model = Mage::getModel('glew/types_order')->parseOrder($order);
+                $model = Mage::getModel('glew/types_order')->parse($order);
                 if ($model) {
                     $this->orders[] = $model;
                 }

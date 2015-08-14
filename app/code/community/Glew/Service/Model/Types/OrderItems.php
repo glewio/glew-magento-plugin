@@ -22,7 +22,7 @@ class Glew_Service_Model_Types_OrderItems
 
         foreach($collection as $orderItem) {
             if ($orderItem && $orderItem->getId()) {
-                $model = Mage::getModel('glew/types_orderItem')->parseOrderItem($orderItem);
+                $model = Mage::getModel('glew/types_orderItem')->parse($orderItem);
                 if ($model) {
                     $this->orderItems[] = $model;
                 }
