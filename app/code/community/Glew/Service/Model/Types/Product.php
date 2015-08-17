@@ -31,7 +31,7 @@ class Glew_Service_Model_Types_Product
                 }
             }
             if($field == 'category_ids'){
-                $value = implode(',', $product->getCategoryIds());
+                $value = $product->getCategoryIds();
             }
 
     		$this->$field = $value;
