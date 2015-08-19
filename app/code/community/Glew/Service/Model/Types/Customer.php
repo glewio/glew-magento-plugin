@@ -14,6 +14,7 @@ class Glew_Service_Model_Types_Customer
         $this->group_id = $groupId;
         $this->group = $customerGroup->getCode();
         $this->created_at = $customer->getCreatedAt();
+        $this->updated_at = $customer->getUpdatedAt();
         $this->name = $customer->getName();
         $this->first_name = $customer->getFirstname();
         $this->last_name = $customer->getLastname();

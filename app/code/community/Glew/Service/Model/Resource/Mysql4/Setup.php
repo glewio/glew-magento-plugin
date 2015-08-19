@@ -7,8 +7,7 @@ class Glew_Service_Model_Resource_Mysql4_Setup extends Mage_Core_Model_Resource_
     {
         $hostname = version_compare(phpversion(),'5.3','>=') ? gethostname() : php_uname('n');
         $prefix = md5($hostname);
-        $token = uniqid($prefix, true);
-        $token = preg_replace('/[^a-zA-Z0-9]/', '', $token);
+        sha1($prefix . rand().microtime());
         $this->_saveSecurityToken($token);
         return $token;
     }

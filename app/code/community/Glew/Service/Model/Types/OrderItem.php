@@ -6,6 +6,7 @@ class Glew_Service_Model_Types_OrderItem
     {
         $this->order_id = $orderItem->getOrderId();
         $this->created_at = $orderItem->getCreatedAt();
+        $this->updated_at = $orderItem->getUpdatedAt();
         $this->weight = $orderItem->getWeight();
         $this->sku = $orderItem->getSku();
         $this->product_id = $orderItem->getProductId();
