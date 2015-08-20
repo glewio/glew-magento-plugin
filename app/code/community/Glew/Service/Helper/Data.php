@@ -4,12 +4,9 @@ class Glew_Service_Helper_Data extends Mage_Core_Helper_Abstract
 {
 	private static $connRead;
 	private static $connWrite;
-    
 	private static $console;
 	private static $filename = "glew.log";
-	
 	private static $debug = true;
-	
     private $_config;
     
 	public function getBaseDir()
@@ -19,12 +16,7 @@ class Glew_Service_Helper_Data extends Mage_Core_Helper_Abstract
     
     public function getLogDir()
     {
-        return Mage::getBaseDir() . '/var/log/';
-    }
-    
-    public function getTempDir()
-    {
-        return Mage::getBaseDir() . '/var/Glew/';
+        return Mage::getBaseDir('log');
     }
 	
 	public function getDatabaseConnection()
@@ -66,42 +58,13 @@ class Glew_Service_Helper_Data extends Mage_Core_Helper_Abstract
         }
     }
         
-    public function ex($ex, $msg)
+    public function logException($ex, $msg)
     {
         if ($this->_logging()) {
             $msg = "an exception has occurred during $msg: " . $ex->getMessage();
             $this->_write($msg);
         }
         return false;
-    }
-    
-    public function debug($msg, $m1 = '', $m2 = '', $m3 = '', $m4 = '', $m5 = '', $m6 = '') 
-    {
-        if ($this->_logging(true)) {
-            $msg = "debug: " . print_r($msg, true) . print_r($m1, true) . print_r($m2, true) . print_r($m3, true) . print_r($m4, true) . print_r($m5, true) . print_r($m6, true);
-            $this->_write($msg);
-        }
-    }
-    
-    function splitArray($arr, $group_size)
-    {
-        $groups = array();
-        if (is_array($arr) && count($arr) > 0) {
-            $one_group = array();
-            for ($i = 0; $i < count($arr); $i++) {
-                if ($i > 0 && $i % $group_size == 0) {
-                    if ($one_group) {
-                        $groups[] = $one_group;
-                    }
-                    $one_group = array();
-                }
-                $one_group[] = $arr[$i];
-            }
-            if ($one_group) {
-                $groups[] = $one_group;
-            }
-        }
-        return $groups;
     }
 
     private function _logging($verbose = false)
