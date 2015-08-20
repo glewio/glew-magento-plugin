@@ -147,10 +147,21 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
     {
         try {
             $obj = new stdClass();
-            $obj->version = Mage::getConfig()->getNode()->modules->Glew_Service->version;
+            $obj->version = (string)Mage::getConfig()->getNode()->modules->Glew_Service->version;
             $this->_sendResponse($obj);
         } catch(Exception $ex) {
             $this->_helper->ex($ex, 'version');
+        }
+    }
+
+    public function extensionsAction()
+    {
+        try {
+            $this->_initRequest();
+            $collection = Mage::getModel('glew/types_extensions')->load($this->_pageSize, $this->_pageNum);
+            $this->_sendResponse($collection);
+        } catch(Exception $ex) {
+            $this->_helper->ex($ex, 'extensions');
         }
     }
     
@@ -167,7 +178,7 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $this->_reject();
             return true;
         }
-               
+
         if (! $this->_config['security_token']) {
             $setup = Mage::getModel('glew/resource_mysql4_setup');
             $setup->createSecurityToken();
