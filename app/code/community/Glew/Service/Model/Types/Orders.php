@@ -2,7 +2,8 @@
 
 class Glew_Service_Model_Types_Orders
 {
-    public $orders; 
+    public $orders;
+    private $pageNum;
     
     public function load($pageSize,$pageNum)
     {

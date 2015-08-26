@@ -3,6 +3,7 @@
 class Glew_Service_Model_Types_ProductAlerts
 {
     public $alerts;
+    private $pageNum;
 
     public function load($pageSize,$pageNum,$startDate = null,$endDate = null)
     {

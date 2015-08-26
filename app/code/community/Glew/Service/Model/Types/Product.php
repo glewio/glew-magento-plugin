@@ -19,6 +19,12 @@ class Glew_Service_Model_Types_Product
                 continue;
             }
 
+            if($field == 'image') {
+                $imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $value;
+                $this->$field = $imageUrl;
+                continue;
+            }
+
             if ($usesSource) {
                 $option = $product->getAttributeText($field);
                 if ($value && empty($option) && $option != '0') {

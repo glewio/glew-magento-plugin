@@ -3,6 +3,7 @@
 class Glew_Service_Model_Types_Stores 
 {
     public $stores;
+    private $pageNum;
     
     public function load()
     {

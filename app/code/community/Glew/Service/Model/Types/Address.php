@@ -4,7 +4,7 @@ class Glew_Service_Model_Types_Address
 {
     const BILLING_ADDRESS_TYPE = 1;
     const SHIPPING_ADDRESS_TYPE = 2;
-    
+    public $address_id;
 	public $address_type;
 	public $firstname;
 	public $lastname; 
@@ -20,6 +20,7 @@ class Glew_Service_Model_Types_Address
     
     public function parse($address)
     {
+    	$this->address_id = $address['entity_id'];
 		$this->address_type = $address['address_type'] == self::BILLING_ADDRESS_TYPE ? 'billing' : 'shipping';
 		$this->firstname = $address['firstname'];
 		$this->lastname = $address['lastname'];

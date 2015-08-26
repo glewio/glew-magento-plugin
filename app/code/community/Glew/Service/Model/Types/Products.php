@@ -3,7 +3,8 @@
 class Glew_Service_Model_Types_Products
 {
     public $products;
-    public $productAttributes = array();
+    private $productAttributes = array();
+    private $pageNum;
 
     public function load($pageSize,$pageNum,$startDate = null,$endDate = null)
     {

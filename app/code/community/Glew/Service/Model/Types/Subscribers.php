@@ -3,6 +3,7 @@
 class Glew_Service_Model_Types_Subscribers
 {
     public $subscribers;
+    private $pageNum;
     
     public function load($pageSize,$pageNum)
     {

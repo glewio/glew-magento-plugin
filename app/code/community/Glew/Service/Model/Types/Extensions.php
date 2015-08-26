@@ -3,6 +3,7 @@
 class Glew_Service_Model_Types_Extensions 
 {
     public $extensions;
+    private $pageNum;
     
     public function load()
     {
