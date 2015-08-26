@@ -9,19 +9,12 @@ class Glew_Service_Model_Types_ProductAlerts
     {
         $config =  Mage::helper('glew')->getConfig();
         if($startDate && $endDate) {
-            $filter = array(
-                'datetime' => 1,
-                'locale' => 'en_US',
-                'from' => new Zend_Date(strtotime($startDate), Zend_Date::TIMESTAMP),
-                'to' => new Zend_Date(strtotime($endDate), Zend_Date::TIMESTAMP),
-            );
-
+            $condition = "add_date BETWEEN '" . date('Y-m-d 00:00:00', strtotime($startDate)) . "' AND '" . date('Y-m-d 23:59:59', strtotime($endDate)) . "'";
             $alerts = Mage::getModel('productalert/stock')->getCollection()
-                ->addFieldToFilter('main_table.add_date', $filter);
+                ->addFilter('add_date', $condition, 'string');
         } else {
             $alerts = Mage::getModel('productalert/stock')->getCollection();
         }
-        $alerts = Mage::getModel('productalert/stock')->getCollection();
         $this->pageNum = $pageNum;
         $alerts->setCurPage($pageNum);
         $alerts->setPageSize($pageSize);
