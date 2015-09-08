@@ -2,7 +2,7 @@
 
 class Glew_Service_Model_Types_RefundItems
 {
-    public $refunds;
+    public $refundItems;
     private $pageNum;
 
     public function load($pageSize,$pageNum,$startDate = null,$endDate = null)
@@ -29,7 +29,7 @@ class Glew_Service_Model_Types_RefundItems
         foreach ($refunds as $refund){
         	$model = Mage::getModel('glew/types_refundItem')->parse($refund);
         	if ($model) {
-        		$this->refunds[] = $model;
+        		$this->refundItems[] = $model;
         	}   
         }
         return $this;
