@@ -165,6 +165,17 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
         }
     }
 
+    public function refund_itemsAction()
+    {
+        try {
+            $this->_initRequest();
+            $collection = Mage::getModel('glew/types_refundItems')->load();
+            $this->_sendResponse($collection);
+        } catch(Exception $e) {
+            $this->_helper->logException($e, 'refund items');
+        }
+    }
+
     public function refundsAction()
     {
         try {

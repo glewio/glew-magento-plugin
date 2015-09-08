@@ -1,6 +1,6 @@
 <?php
 
-class Glew_Service_Model_Types_Refunds
+class Glew_Service_Model_Types_RefundItems
 {
     public $refunds;
     private $pageNum;
@@ -17,6 +17,7 @@ class Glew_Service_Model_Types_Refunds
         } else {
             $refunds = Mage::getResourceModel('sales/order_creditmemo_collection');
         }
+        $refunds->getSelect()->join(array('credit_item' => sales_flat_creditmemo_item), 'credit_item.parent_id = main_table.entity_id', array('*'));
         $this->pageNum = $pageNum;
         $refunds->setCurPage($pageNum);
         $refunds->setPageSize($pageSize);
@@ -26,7 +27,7 @@ class Glew_Service_Model_Types_Refunds
         }
         
         foreach ($refunds as $refund){
-        	$model = Mage::getModel('glew/types_refund')->parse($refund);
+        	$model = Mage::getModel('glew/types_refundItem')->parse($refund);
         	if ($model) {
         		$this->refunds[] = $model;
         	}   
