@@ -1,0 +1,19 @@
+<?php 
+
+class Glew_Service_Model_Types_Refund
+{
+    public function parse($refund)
+    {
+        $this->refund_id = $refund->getId();
+        $this->product_id = $refund->getData('product_id');
+        $this->order_item_id = $refund->getData('order_item_id');
+        $this->qty = $refund->getData('qty');
+        $this->row_total = $refund->getData('row_total');
+        $this->tax_amount = $refund->getData('tax_amount');
+        $this->created_at = $refund->getCreatedAt();
+        $this->updated_at = $refund->getUpdatedAt();
+
+        return $this;
+    }
+
+}
