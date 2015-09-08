@@ -11,6 +11,7 @@ class Glew_Service_Model_Types_RefundItem
         $this->qty = $refund->getData('qty');
         $this->row_total = $refund->getData('row_total');
         $this->tax_amount = $refund->getData('tax_amount');
+        $this->price = $refund->getData('base_price');
         $this->created_at = $refund->getCreatedAt();
         $this->updated_at = $refund->getUpdatedAt();
 
