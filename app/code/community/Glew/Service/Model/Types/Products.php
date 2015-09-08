@@ -10,11 +10,15 @@ class Glew_Service_Model_Types_Products
     {
         $config =  Mage::helper('glew')->getConfig();
         $this->_getProductAttribtues();
-        $from = date('Y-m-d 00:00:00', strtotime($startDate));
-        $to = date('Y-m-d 23:59:59', strtotime($endDate));
+        if($startDate && $endDate) {
+            $from = date('Y-m-d 00:00:00', strtotime($startDate));
+            $to = date('Y-m-d 23:59:59', strtotime($endDate));
 
-        $products = Mage::getModel('catalog/product')->getCollection()->addAttributeToSelect('*')
-            ->addAttributeToFilter('updated_at', array('from'=>$from, 'to'=>$to));
+            $products = Mage::getModel('catalog/product')->getCollection()->addAttributeToSelect('*')
+                ->addAttributeToFilter('updated_at', array('from'=>$from, 'to'=>$to));
+        } else {
+            $products = Mage::getModel('catalog/product')->getCollection()->addAttributeToSelect('*');
+        }
         $this->pageNum = $pageNum;
         $products->setCurPage($pageNum);
         $products->setPageSize($pageSize);

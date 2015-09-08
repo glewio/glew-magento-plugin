@@ -134,7 +134,7 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
     public function inventoryAction() {
         try {
             $this->_initRequest();
-            $collection = Mage::getModel('glew/types_inventory')->load($this->_pageSize,$this->_pageNum,$this->_startDate,$this->_endDate);
+            $collection = Mage::getModel('glew/types_inventory')->load($this->_pageSize,$this->_pageNum);
             $this->_sendResponse($collection);
         } catch(Exception $ex) {
             $this->_helper->logException($ex, 'inventory');
