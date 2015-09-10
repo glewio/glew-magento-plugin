@@ -5,7 +5,7 @@ class Glew_Service_Model_Types_Categories
     public $categories;
     private $pageNum;
 
-    public function load($pageSize,$pageNum,$startDate = null,$endDate = null)
+    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir)
     {
         $config =  Mage::helper('glew')->getConfig();
         if($startDate && $endDate) {
@@ -18,6 +18,7 @@ class Glew_Service_Model_Types_Categories
             $categories = Mage::getModel('catalog/category')->getCollection();
         }
         $this->pageNum = $pageNum;
+        $categories->setOrder('updated_at', $sortDir);
         $categories->setCurPage($pageNum);
         $categories->setPageSize($pageSize);
         

@@ -5,7 +5,7 @@ class Glew_Service_Model_Types_ProductAlerts
     public $alerts;
     private $pageNum;
 
-    public function load($pageSize,$pageNum,$startDate = null,$endDate = null)
+    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir)
     {
         $config =  Mage::helper('glew')->getConfig();
         if($startDate && $endDate) {
@@ -15,6 +15,7 @@ class Glew_Service_Model_Types_ProductAlerts
         } else {
             $alerts = Mage::getModel('productalert/stock')->getCollection();
         }
+        $alerts->setOrder('add_date', $sortDir);
         $this->pageNum = $pageNum;
         $alerts->setCurPage($pageNum);
         $alerts->setPageSize($pageSize);

@@ -5,7 +5,7 @@ class Glew_Service_Model_Types_Refunds
     public $refunds;
     private $pageNum;
 
-    public function load($pageSize,$pageNum,$startDate = null,$endDate = null)
+    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir)
     {
         $config =  Mage::helper('glew')->getConfig();
         if($startDate && $endDate) {
@@ -17,6 +17,7 @@ class Glew_Service_Model_Types_Refunds
         } else {
             $refunds = Mage::getResourceModel('sales/order_creditmemo_collection');
         }
+        $refunds->setOrder('updated_at', $sortDir);
         $this->pageNum = $pageNum;
         $refunds->setCurPage($pageNum);
         $refunds->setPageSize($pageSize);

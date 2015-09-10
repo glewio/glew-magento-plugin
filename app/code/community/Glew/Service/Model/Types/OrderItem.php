@@ -25,6 +25,7 @@ class Glew_Service_Model_Types_OrderItem
         
         $this->price = round($orderItem->getPrice(), 2);
         $this->original_price = round($orderItem->getOriginalPrice(), 2);
+        $this->cost = round($orderItem->getCost(), 2);
         $this->row_total = round($orderItem->getRowTotal(), 2);
         $this->tax_percent = round($orderItem->getTaxPercent(), 2);
         $this->tax_amount = round($orderItem->getTaxAmount(), 2);

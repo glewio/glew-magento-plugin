@@ -6,7 +6,7 @@ class Glew_Service_Model_Types_Products
     private $productAttributes = array();
     private $pageNum;
 
-    public function load($pageSize,$pageNum,$startDate = null,$endDate = null)
+    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir)
     {
         $config =  Mage::helper('glew')->getConfig();
         $this->_getProductAttribtues();
@@ -20,6 +20,7 @@ class Glew_Service_Model_Types_Products
             $products = Mage::getModel('catalog/product')->getCollection()->addAttributeToSelect('*');
         }
         $this->pageNum = $pageNum;
+        $products->setOrder('updated_at', $sortDir);
         $products->setCurPage($pageNum);
         $products->setPageSize($pageSize);
         

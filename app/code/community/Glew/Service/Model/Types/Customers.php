@@ -5,7 +5,7 @@ class Glew_Service_Model_Types_Customers
     public $customers;
     private $pageNum;
     
-    public function load($pageSize,$pageNum,$startDate = null,$endDate = null)
+    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir)
     {
         $helper = Mage::helper('glew');
         $config = $helper->getConfig();
@@ -18,6 +18,7 @@ class Glew_Service_Model_Types_Customers
         } else {
             $collection = Mage::getModel('customer/customer')->getCollection();
         }
+        $collection->setOrder('updated_at', $sortDir);
         $collection->setCurPage($pageNum);
         $collection->setPageSize($pageSize);
         $this->pageNum = $pageNum;
