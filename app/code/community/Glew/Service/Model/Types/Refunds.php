@@ -17,7 +17,7 @@ class Glew_Service_Model_Types_Refunds
         } else {
             $refunds = Mage::getResourceModel('sales/order_creditmemo_collection');
         }
-        $refunds->setOrder('updated_at', $sortDir);
+        $refunds->setOrder('created_at', $sortDir);
         $this->pageNum = $pageNum;
         $refunds->setCurPage($pageNum);
         $refunds->setPageSize($pageSize);

@@ -18,7 +18,7 @@ class Glew_Service_Model_Types_Categories
             $categories = Mage::getModel('catalog/category')->getCollection();
         }
         $this->pageNum = $pageNum;
-        $categories->setOrder('updated_at', $sortDir);
+        $categories->setOrder('created_at', $sortDir);
         $categories->setCurPage($pageNum);
         $categories->setPageSize($pageSize);
         

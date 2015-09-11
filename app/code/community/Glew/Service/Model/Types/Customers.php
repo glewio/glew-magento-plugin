@@ -18,7 +18,7 @@ class Glew_Service_Model_Types_Customers
         } else {
             $collection = Mage::getModel('customer/customer')->getCollection();
         }
-        $collection->setOrder('updated_at', $sortDir);
+        $collection->setOrder('created_at', $sortDir);
         $collection->setCurPage($pageNum);
         $collection->setPageSize($pageSize);
         $this->pageNum = $pageNum;

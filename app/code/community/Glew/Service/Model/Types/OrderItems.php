@@ -24,7 +24,7 @@ class Glew_Service_Model_Types_OrderItems
             "main_table.product_id = cost.entity_id AND cost.attribute_id = {$attribute->getId()}",
             array('cost' => 'value')
         );
-        $collection->setOrder('updated_at', $sortDir);
+        $collection->setOrder('created_at', $sortDir);
         $this->pageNum = $pageNum;
         $collection->setCurPage($pageNum);
         $collection->setPageSize($pageSize);

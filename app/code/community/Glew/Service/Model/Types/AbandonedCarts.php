@@ -23,7 +23,7 @@ class Glew_Service_Model_Types_AbandonedCarts
         	$collection = Mage::getResourceModel('reports/quote_collection');
         }
         $collection->prepareForAbandonedReport();
-        $collection->setOrder('updated_at', $sortDir);
+        $collection->setOrder('created_at', $sortDir);
         $collection->setCurPage($pageNum);
         $collection->setPageSize($pageSize);
         $this->pageNum = $pageNum;
