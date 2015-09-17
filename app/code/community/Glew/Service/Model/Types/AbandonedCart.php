@@ -5,11 +5,13 @@ class Glew_Service_Model_Types_AbandonedCart
     public function parse($cart)
     {
 
+        $products = array();
+
         foreach($cart->getAllItems() as $item) {
             $obj = new stdClass();
             $obj->product_id = $item->getProduct()->getId();
             $obj->qty = $item->getQty();
-            $productIds[] = $obj;
+            $products[] = $obj;
         }
 
         $this->id = $cart->getId();
@@ -22,7 +24,7 @@ class Glew_Service_Model_Types_AbandonedCart
         $this->updated_at = $cart->getUpdatedAt();
         $this->items_count = $cart->getItemsCount();
         $this->items_qty = $cart->getItemsQty();
-        $this->product_ids = $productIds;
+        $this->products = $products;
         $this->total = round($cart->getSubtotal(), 2);
 
         $this->discount_amount = round($cart->getDiscountAmount(), 2);
