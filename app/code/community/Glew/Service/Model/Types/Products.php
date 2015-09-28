@@ -2,11 +2,11 @@
 
 class Glew_Service_Model_Types_Products
 {
-    public $products;
+    public $products = array();
     private $productAttributes = array();
     private $pageNum;
 
-    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir)
+    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir, $filterBy)
     {
         $config =  Mage::helper('glew')->getConfig();
         $this->_getProductAttribtues();
@@ -15,7 +15,7 @@ class Glew_Service_Model_Types_Products
             $to = date('Y-m-d 23:59:59', strtotime($endDate));
 
             $products = Mage::getModel('catalog/product')->getCollection()->addAttributeToSelect('*')
-                ->addAttributeToFilter('updated_at', array('from'=>$from, 'to'=>$to));
+                ->addAttributeToFilter($filterBy, array('from'=>$from, 'to'=>$to));
         } else {
             $products = Mage::getModel('catalog/product')->getCollection()->addAttributeToSelect('*');
         }
@@ -23,11 +23,11 @@ class Glew_Service_Model_Types_Products
         $products->setOrder('updated_at', $sortDir);
         $products->setCurPage($pageNum);
         $products->setPageSize($pageSize);
-        
+
     	if($products->getLastPageNumber() < $pageNum){
     		return $this;
         }
-        
+
         foreach ($products as $product){
             $productId = $product->getId();
             $model = Mage::getModel('glew/types_product')->parse($productId, $this->productAttributes);
@@ -36,7 +36,7 @@ class Glew_Service_Model_Types_Products
                 $model->up_sell_products = $this->_getUpSellProducts($product);
                 $model->related_products = $this->_getRelatedProducts($product);
         		$this->products[] = $model;
-        	}   
+        	}
         }
         return $this;
     }
@@ -78,7 +78,7 @@ class Glew_Service_Model_Types_Products
         }
         return $productArray;
     }
-    
+
     protected function _getRelatedProducts($product)
     {
         $productArray = array();

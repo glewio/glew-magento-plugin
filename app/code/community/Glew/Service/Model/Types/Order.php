@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-class Glew_Service_Model_Types_Order 
+class Glew_Service_Model_Types_Order
 {
     public function parse($order)
     {
@@ -12,6 +12,7 @@ class Glew_Service_Model_Types_Order
         $customerGroup = Mage::getModel('customer/group')->load( $order->getCustomerGroupId() );
         $this->customer_group = $customerGroup->getCode();
         $this->created_at = $order->getCreatedAt();
+        $this->updated_at = $order->getUpdatedAt();
         $this->state = $order->getState();
         $this->status = $order->getStatus();
         $this->customer_is_guest = $order->getCustomerIsGuest();
@@ -23,14 +24,14 @@ class Glew_Service_Model_Types_Order
         $this->shipping_tax = round($order->getShippingTaxAmount(), 2);
         $this->shipping_description = $order->getShippingDescription();
         $this->payment_method = $order->getPayment()->getMethodInstance()->getTitle();
-        
+
         $this->discount_amount = round($order->getDiscountAmount(), 2);
         $this->discount_description = $order->getDiscountDescription();
         $this->weight = $order->getWeight();
         $this->remote_ip = $order->getRemoteIp();
         $this->store = $order->getStore()->getCode();
-        
+
         return $this;
     }
-    
+
 }

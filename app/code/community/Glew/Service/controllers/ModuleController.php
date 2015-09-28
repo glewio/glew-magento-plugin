@@ -1,14 +1,15 @@
-<?php 
+<?php
 
 class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
 {
     protected $_helper = null;
     protected $_config = null;
     protected $_pageSize = null;
-    protected $_pageNum = null;
+    protected $_pageNum = 0;
     protected $_startDate = null;
     protected $_endDate = null;
     protected $_sortDir = 'asc';
+    protected $_filterField = 'created_at';
 
     protected function _construct()
     {
@@ -22,9 +23,19 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
         }
         if (!!$startDate = $this->getRequest()->getParam('start_date')) {
             $this->_startDate = $startDate;
-        }
-        if (!!$endDate = $this->getRequest()->getParam('end_date')) {
-            $this->_endDate = $endDate;
+            if (!!$endDate = $this->getRequest()->getParam('end_date')) {
+              $this->_endDate = $endDate;
+            } else {
+              $this->_endDate = date("Y-m-d");
+            }
+        } elseif (!!$updatedStartDate = $this->getRequest()->getParam('updated_start_date')) {
+            $this->_filterField = 'updated_at';
+            $this->_startDate = $updatedStartDate;
+            if (!!$updatedEndDate = $this->getRequest()->getParam('updated_end_date')) {
+                $this->_endDate = $updatedEndDate;
+            } else {
+              $this->_endDate = date("Y-m-d");
+            }
         }
         if (!!$sortDir = $this->getRequest()->getParam('sort_dir')) {
             $this->_sortDir = $sortDir;
@@ -39,41 +50,41 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
     {
         try {
             $this->_initRequest();
-            $collection = Mage::getModel('glew/types_abandonedCarts')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir);
+            $collection = Mage::getModel('glew/types_abandonedCarts')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
         } catch(Exception $e) {
             $this->_helper->logException($e, 'abandonedCarts');
         }
     }
-    
+
     public function customersAction()
     {
         try {
             $this->_initRequest();
-            $collection = Mage::getModel('glew/types_customers')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir);
+            $collection = Mage::getModel('glew/types_customers')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
         } catch(Exception $e) {
             $this->_helper->logException($e, 'customers');
         }
     }
 
-    
+
     public function ordersAction()
     {
         try {
             $this->_initRequest();
-            $collection = Mage::getModel('glew/types_orders')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir);
+            $collection = Mage::getModel('glew/types_orders')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
         } catch(Exception $e) {
             $this->_helper->logException($e, 'orders');
         }
     }
-    
+
     public function order_itemsAction()
     {
         try {
             $this->_initRequest();
-            $collection = Mage::getModel('glew/types_orderItems')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir);
+            $collection = Mage::getModel('glew/types_orderItems')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
         } catch(Exception $e) {
             $this->_helper->logException($e, 'orderItems');
@@ -95,7 +106,7 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
     {
         try {
             $this->_initRequest();
-            $collection = Mage::getModel('glew/types_subscribers')->load($this->_pageSize, $this->_pageNum, $this->_sortDir);
+            $collection = Mage::getModel('glew/types_subscribers')->load($this->_pageSize, $this->_pageNum, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
         } catch(Exception $e) {
             $this->_helper->logException($e, 'subscribers');
@@ -106,7 +117,7 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
     {
         try {
             $this->_initRequest();
-            $collection = Mage::getModel('glew/types_products')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir);
+            $collection = Mage::getModel('glew/types_products')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
         } catch(Exception $e) {
             $this->_helper->logException($e, 'products');
@@ -117,7 +128,7 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
     {
         try {
             $this->_initRequest();
-            $collection = Mage::getModel('glew/types_productAlerts')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir);
+            $collection = Mage::getModel('glew/types_productAlerts')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
         } catch(Exception $e) {
             $this->_helper->logException($e, 'productAlerts');
@@ -128,7 +139,7 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
     {
         try {
             $this->_initRequest();
-            $collection = Mage::getModel('glew/types_categories')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir);
+            $collection = Mage::getModel('glew/types_categories')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
         } catch(Exception $e) {
             $this->_helper->logException($e, 'categories');
@@ -138,7 +149,7 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
     public function inventoryAction() {
         try {
             $this->_initRequest();
-            $collection = Mage::getModel('glew/types_inventory')->load($this->_pageSize, $this->_pageNum, $this->_sortDir);
+            $collection = Mage::getModel('glew/types_inventory')->load($this->_pageSize, $this->_pageNum, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
         } catch(Exception $e) {
             $this->_helper->logException($e, 'inventory');
@@ -146,7 +157,7 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
     }
 
 
-    
+
     public function versionAction()
     {
         try {
@@ -162,7 +173,7 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
     {
         try {
             $this->_initRequest();
-            $collection = Mage::getModel('glew/types_extensions')->load($this->_pageSize, $this->_pageNum, $this->_sortDir);
+            $collection = Mage::getModel('glew/types_extensions')->load($this->_pageSize, $this->_pageNum, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
         } catch(Exception $e) {
             $this->_helper->logException($e, 'extensions');
@@ -173,7 +184,7 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
     {
         try {
             $this->_initRequest();
-            $collection = Mage::getModel('glew/types_refundItems')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir);
+            $collection = Mage::getModel('glew/types_refundItems')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
         } catch(Exception $e) {
             $this->_helper->logException($e, 'refund items');
@@ -184,20 +195,20 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
     {
         try {
             $this->_initRequest();
-            $collection = Mage::getModel('glew/types_refunds')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir);
+            $collection = Mage::getModel('glew/types_refunds')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
         } catch(Exception $e) {
             $this->_helper->logException($e, 'refunds');
         }
     }
-    
+
 
     protected function _sendResponse($items)
     {
         $this->getResponse()->clearHeaders()->setHeader('Content-type', 'application/json', true);
         $this->getResponse()->setBody(json_encode($items));
     }
-    
+
     private function _initRequest()
     {
         if (! $this->_config['enabled']) {
@@ -217,11 +228,11 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $this->_reject();
         }
     }
-    
+
     private function _reject()
     {
         $this->getResponse()->setHttpResponseCode(401)->setBody('Invalid security token or module disabled');
         throw new Exception('Invalid security token or module disabled');
     }
-    
+
 }

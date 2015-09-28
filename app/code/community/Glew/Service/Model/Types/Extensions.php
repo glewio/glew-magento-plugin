@@ -1,11 +1,11 @@
 <?php
 
-class Glew_Service_Model_Types_Extensions 
+class Glew_Service_Model_Types_Extensions
 {
-    public $extensions;
+    public $extensions = array();
     private $pageNum;
-    
-    public function load($pageSize, $pageNum, $sortDir)
+
+    public function load($pageSize, $pageNum, $sortDir, $filterBy)
     {
         $helper = Mage::helper('glew');
         $config = $helper->getConfig();
@@ -19,8 +19,8 @@ class Glew_Service_Model_Types_Extensions
                 $this->extensions[] = $model;
             }
         }
-        
+
         return $this;
     }
-    
+
 }

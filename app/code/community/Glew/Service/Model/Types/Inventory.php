@@ -2,10 +2,10 @@
 
 class Glew_Service_Model_Types_Inventory
 {
-    public $inventory;
+    public $inventory = array();
     private $pageNum;
 
-    public function load($pageSize, $pageNum, $sortDir)
+    public function load($pageSize, $pageNum, $sortDir, $filterBy)
     {
         $config =  Mage::helper('glew')->getConfig();
         $inventory = Mage::getModel('cataloginventory/stock_item')->getCollection();

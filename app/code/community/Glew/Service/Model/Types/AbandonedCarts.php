@@ -2,10 +2,10 @@
 
 class Glew_Service_Model_Types_AbandonedCarts
 {
-    public $carts;
+    public $carts = array();
     private $pageNum;
 
-    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir)
+    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir, $filterBy)
     {
         $helper = Mage::helper('glew');
         $config = $helper->getConfig();
@@ -18,7 +18,7 @@ class Glew_Service_Model_Types_AbandonedCarts
 			);
 
 	        $collection = Mage::getResourceModel('reports/quote_collection')
-	            ->addFieldToFilter('main_table.updated_at', $filter);
+	            ->addFieldToFilter('main_table.' . $filterBy, $filter);
         } else {
         	$collection = Mage::getResourceModel('reports/quote_collection');
         }

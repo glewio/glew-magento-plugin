@@ -2,10 +2,10 @@
 
 class Glew_Service_Model_Types_ProductAlerts
 {
-    public $alerts;
+    public $alerts = array();
     private $pageNum;
 
-    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir)
+    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir, $filterBy)
     {
         $config =  Mage::helper('glew')->getConfig();
         if($startDate && $endDate) {

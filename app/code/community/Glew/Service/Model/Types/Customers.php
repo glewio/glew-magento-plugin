@@ -1,11 +1,11 @@
 <?php
 
-class Glew_Service_Model_Types_Customers 
+class Glew_Service_Model_Types_Customers
 {
-    public $customers;
+    public $customers = array();
     private $pageNum;
-    
-    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir)
+
+    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir, $filterBy)
     {
         $helper = Mage::helper('glew');
         $config = $helper->getConfig();
@@ -14,7 +14,7 @@ class Glew_Service_Model_Types_Customers
             $to = date('Y-m-d 23:59:59', strtotime($endDate));
 
             $collection = Mage::getModel('customer/customer')->getCollection()
-                ->addAttributeToFilter('updated_at', array('from'=>$from, 'to'=>$to));
+                ->addAttributeToFilter($filterBy, array('from'=>$from, 'to'=>$to));
         } else {
             $collection = Mage::getModel('customer/customer')->getCollection();
         }
@@ -35,8 +35,8 @@ class Glew_Service_Model_Types_Customers
                 }
             }
         }
-        
+
         return $this;
     }
-    
+
 }
