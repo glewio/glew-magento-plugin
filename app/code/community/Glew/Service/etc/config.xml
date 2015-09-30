@@ -61,11 +61,8 @@
 	  </general>
     </glew_settings>
   </default>
-  
+
   <frontend>
-    <secure_url>
-      <glew>/glew/</glew>
-    </secure_url>
     <routers>
       <glew>
         <use>standard</use>
@@ -76,7 +73,7 @@
       </glew>
     </routers>
   </frontend>
-  
+
   <admin>
     <routers>
       <adminhtml>
@@ -113,7 +110,7 @@
     </acl>
   </adminhtml>
 
-  
+
     <menu>
          <glew translate="title" module="glew">
             <title>Glew</title>
@@ -132,4 +129,3 @@
         </resources>
     </acl>
 </config>
-
