@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Glew_Service_Model_Types_Product
 {
@@ -19,7 +19,7 @@ class Glew_Service_Model_Types_Product
                 continue;
             }
 
-            if($field == 'image') {
+            if($field == 'image' && $value) {
                 $imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $value;
                 $this->$field = $imageUrl;
                 continue;
