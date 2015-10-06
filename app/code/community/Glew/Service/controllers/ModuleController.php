@@ -221,7 +221,7 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $setup->createSecurityToken();
         }
 
-        $authToken = $_SERVER['HTTP_AUTHORIZATION'];
+        $authToken = (isset($_SERVER['HTTP_X_GLEW_TOKEN']) ? $_SERVER['HTTP_X_GLEW_TOKEN'] : $_SERVER['X_GLEW_TOKEN']);
 
         if (trim( $this->_config['security_token']) != trim($authToken)) {
             Mage::log('Glew feed request with invalid security token: ' . $this->getRequest()->getParam('token'));
