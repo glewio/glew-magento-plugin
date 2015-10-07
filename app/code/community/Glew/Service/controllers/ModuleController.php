@@ -211,19 +211,25 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
 
     private function _initRequest()
     {
-        if (! $this->_config['enabled']) {
+        if(!$this->_config['enabled']) {
             $this->_reject();
             return true;
         }
 
-        if (! $this->_config['security_token']) {
+        if(!$this->_config['security_token']) {
             $setup = Mage::getModel('glew/resource_mysql4_setup');
-            $setup->createSecurityToken();
+            $token = $setup->createSecurityToken();
+        } else {
+            $token = $this->_config['security_token'];
         }
 
         $authToken = (isset($_SERVER['HTTP_X_GLEW_TOKEN']) ? $_SERVER['HTTP_X_GLEW_TOKEN'] : $_SERVER['X_GLEW_TOKEN']);
 
-        if (trim( $this->_config['security_token']) != trim($authToken)) {
+        if(empty($authToken)) {
+          $this->_reject();
+        }
+
+        if(trim( $token ) != trim($authToken)) {
             Mage::log('Glew feed request with invalid security token: ' . $this->getRequest()->getParam('token'));
             $this->_reject();
         }

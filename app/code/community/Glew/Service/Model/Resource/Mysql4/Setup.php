@@ -21,5 +21,6 @@ class Glew_Service_Model_Resource_Mysql4_Setup extends Mage_Core_Model_Resource_
     {
         Mage::app()->getStore()->setConfig('glew_settings/general/security_token', $token);
         Mage::getModel('core/config')->saveConfig('glew_settings/general/security_token', $token);
+        Mage::app()->getCacheInstance()->cleanType('config');
     }
 }
