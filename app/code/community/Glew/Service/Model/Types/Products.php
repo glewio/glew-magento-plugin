@@ -57,8 +57,7 @@ class Glew_Service_Model_Types_Products
     protected function _getCrossSellProducts($product)
     {
         $productArray = array();
-        $collection = $product->getCrossSellProductCollection()
-            ->addAttributetoSort('position', 'asc');
+        $collection = $product->getCrossSellProductCollection();
         if($collection) {
             foreach($collection as $item) {
                 $productArray[] = $item->getId();
