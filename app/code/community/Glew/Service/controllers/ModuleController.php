@@ -162,7 +162,9 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
     {
         try {
             $obj = new stdClass();
-            $obj->version = (string)Mage::getConfig()->getNode()->modules->Glew_Service->version;
+            $obj->glewPluginVersion = (string)Mage::getConfig()->getNode()->modules->Glew_Service->version;
+            $obj->magentoVersion = (string)Mage::getVersion();
+            $obj->phpVersion = (string)phpversion();
             $this->_sendResponse($obj);
         } catch(Exception $ex) {
             $this->_helper->logException($ex, 'version');
@@ -230,7 +232,7 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
         }
 
         if(trim( $token ) != trim($authToken)) {
-            Mage::log('Glew feed request with invalid security token: ' . $this->getRequest()->getParam('token'));
+            Mage::log('Glew feed request with invalid security token: ' . $this->getRequest()->getParam('token') . ' compared to stored token: ' . $token);
             $this->_reject();
         }
     }
