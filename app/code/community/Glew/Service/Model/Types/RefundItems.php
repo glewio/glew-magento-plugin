@@ -17,7 +17,9 @@ class Glew_Service_Model_Types_RefundItems
         } else {
             $refunds = Mage::getResourceModel('sales/order_creditmemo_collection');
         }
-        $refunds->getSelect()->join(array('credit_item' => 'sales_flat_creditmemo_item'), 'credit_item.parent_id = main_table.entity_id', array('*'));
+        $resource = Mage::getSingleton('core/resouce');
+        $salesFlatCredMemItem = $resource->getTableName('sales_flat_creditmemo_item');
+        $refunds->getSelect()->join(array('credit_item' => $salesFlatCredMemItem), 'credit_item.parent_id = main_table.entity_id', array('*'));
         $refunds->setOrder('created_at', $sortDir);
         $this->pageNum = $pageNum;
         $refunds->setCurPage($pageNum);

@@ -19,8 +19,10 @@ class Glew_Service_Model_Types_OrderItems
         } else {
             $collection = Mage::getModel('sales/order_item')->getCollection();
         }
+        $resource = Mage::getSingleton('core/resouce');
+        $catProdEntDecTable = $resource->getTableName('catalog_product_entity_decimal');
         $collection->getSelect()->joinLeft(
-            array('cost' => 'catalog_product_entity_decimal'),
+            array('cost' => $catProdEntDecTable),
             "main_table.product_id = cost.entity_id AND cost.attribute_id = {$attribute->getId()}",
             array('cost' => 'value')
         );
