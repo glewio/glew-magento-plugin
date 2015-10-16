@@ -2,7 +2,7 @@
 <config>
   <modules>
     <Glew_Service>
-      <version>1.0.7</version>
+      <version>1.0.8</version>
       <depends>
         <Mage_Shipping />
       </depends>
@@ -26,7 +26,7 @@
         </connection>
         <setup>
           <module>Glew_Service</module>
-          <class>Glew_Service_Model_Resource_Mysql4_Setup</class>
+          <class>Glew_Service_Model_Resource_Setup</class>
         </setup>
       </glew_setup>
       <glew_read>

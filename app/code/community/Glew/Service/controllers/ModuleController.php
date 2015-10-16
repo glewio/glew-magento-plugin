@@ -254,12 +254,7 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             return true;
         }
 
-        if(!$this->_config['security_token']) {
-            $setup = Mage::getModel('glew/resource_mysql4_setup');
-            $token = $setup->createSecurityToken();
-        } else {
-            $token = $this->_config['security_token'];
-        }
+        $token = $this->_config['security_token'];
 
         $authToken = (isset($_SERVER['HTTP_X_GLEW_TOKEN']) ? $_SERVER['HTTP_X_GLEW_TOKEN'] : $_SERVER['X_GLEW_TOKEN']);
 
