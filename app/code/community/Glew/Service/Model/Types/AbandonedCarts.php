@@ -24,7 +24,7 @@ class Glew_Service_Model_Types_AbandonedCarts
             $collection = Mage::getResourceModel('reports/quote_collection');
         }
         $collection->addFieldToFilter('main_table.store_id', $helper->getStore()->getStoreId());
-        $collection->prepareForAbandonedReport();
+        $collection->prepareForAbandonedReport(array($helper->getStore()->getWebsiteId()));
         $collection->setOrder('created_at', $sortDir);
         $collection->setCurPage($pageNum);
         $collection->setPageSize($pageSize);
