@@ -7,7 +7,15 @@ class Glew_Service_Model_Types_Categories
 
     public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir, $filterBy)
     {
-        $config =  Mage::helper('glew')->getConfig();
+        $helper = Mage::helper('glew');
+        $config = $helper->getConfig();
+        $this->pageNum = $pageNum;
+        $rootCategoryId = $helper->getStore()->getRootCategoryId();
+        $rootpath = Mage::getModel('catalog/category')
+            ->setStoreId($helper->getStore()->getStoreId())
+            ->load($rootCategoryId)
+            ->getPath();
+
         if($startDate && $endDate) {
             $from = date('Y-m-d 00:00:00', strtotime($startDate));
             $to = date('Y-m-d 23:59:59', strtotime($endDate));
@@ -17,13 +25,13 @@ class Glew_Service_Model_Types_Categories
         } else {
             $categories = Mage::getModel('catalog/category')->getCollection();
         }
-        $this->pageNum = $pageNum;
+        $categories->addAttributeToFilter('path', array("like"=>$rootpath."/"."%"));
         $categories->setOrder('created_at', $sortDir);
         $categories->setCurPage($pageNum);
         $categories->setPageSize($pageSize);
 
-    	if($categories->getLastPageNumber() < $pageNum){
-    		return $this;
+    	  if($categories->getLastPageNumber() < $pageNum){
+    		    return $this;
         }
 
         foreach ($categories as $category){
@@ -34,5 +42,4 @@ class Glew_Service_Model_Types_Categories
         }
         return $this;
     }
-
 }

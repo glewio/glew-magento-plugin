@@ -7,6 +7,7 @@ class Glew_Service_Helper_Data extends Mage_Core_Helper_Abstract
 	private static $filename = "glew.log";
 	private static $debug = true;
   private $_config;
+	protected $_store = null;
 
 	public function getBaseDir()
 	{
@@ -63,4 +64,11 @@ class Glew_Service_Helper_Data extends Mage_Core_Helper_Abstract
   {
     return Mage::log($msg, null, self::$filename);
   }
+
+	public function getStore() {
+		if($this->_store == null) {
+			$this->_store = Mage::app()->getStore();
+		}
+		return $this->_store;
+	}
 }

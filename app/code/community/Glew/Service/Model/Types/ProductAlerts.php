@@ -7,7 +7,9 @@ class Glew_Service_Model_Types_ProductAlerts
 
     public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir, $filterBy)
     {
-        $config =  Mage::helper('glew')->getConfig();
+        $helper = Mage::helper('glew');
+        $config = $helper->getConfig();
+        $this->pageNum = $pageNum;
         if($startDate && $endDate) {
             $condition = "add_date BETWEEN '" . date('Y-m-d 00:00:00', strtotime($startDate)) . "' AND '" . date('Y-m-d 23:59:59', strtotime($endDate)) . "'";
             $alerts = Mage::getModel('productalert/stock')->getCollection()
@@ -15,8 +17,8 @@ class Glew_Service_Model_Types_ProductAlerts
         } else {
             $alerts = Mage::getModel('productalert/stock')->getCollection();
         }
+        $alerts->addFilter('website_id', "website_id = " . $helper->getStore()->getWebsiteId(), 'string');
         $alerts->setOrder('add_date', $sortDir);
-        $this->pageNum = $pageNum;
         $alerts->setCurPage($pageNum);
         $alerts->setPageSize($pageSize);
 

@@ -9,24 +9,25 @@ class Glew_Service_Model_Types_AbandonedCarts
     {
         $helper = Mage::helper('glew');
         $config = $helper->getConfig();
+        $this->pageNum = $pageNum;
         if($startDate && $endDate) {
 	        $filter = array(
 	            'datetime' => 1,
 	            'locale' => 'en_US',
 	            'from' => new Zend_Date(strtotime($startDate), Zend_Date::TIMESTAMP),
-				'to' => new Zend_Date(strtotime($endDate), Zend_Date::TIMESTAMP),
-			);
+				      'to' => new Zend_Date(strtotime($endDate), Zend_Date::TIMESTAMP),
+			    );
 
 	        $collection = Mage::getResourceModel('reports/quote_collection')
 	            ->addFieldToFilter('main_table.' . $filterBy, $filter);
         } else {
-        	$collection = Mage::getResourceModel('reports/quote_collection');
+            $collection = Mage::getResourceModel('reports/quote_collection');
         }
+        $collection->addFieldToFilter('main_table.store_id', $helper->getStore()->getStoreId());
         $collection->prepareForAbandonedReport();
         $collection->setOrder('created_at', $sortDir);
         $collection->setCurPage($pageNum);
         $collection->setPageSize($pageSize);
-        $this->pageNum = $pageNum;
 
         if($collection->getLastPageNumber() < $pageNum){
           return $this;

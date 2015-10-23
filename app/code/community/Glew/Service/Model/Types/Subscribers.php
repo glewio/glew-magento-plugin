@@ -9,8 +9,9 @@ class Glew_Service_Model_Types_Subscribers
     {
         $helper = Mage::helper('glew');
         $config = $helper->getConfig();
-        $subscribers = Mage::getModel('newsletter/subscriber')->getCollection();
         $this->pageNum = $pageNum;
+        $subscribers = Mage::getModel('newsletter/subscriber')->getCollection();
+        $subscribers->addFilter('store_id', "store_id = " . $helper->getStore()->getStoreId(), 'string');
         $subscribers->setOrder('subscriber_id', $sortDir);
         $subscribers->setCurPage($pageNum);
         $subscribers->setPageSize($pageSize);
