@@ -71,4 +71,9 @@ class Glew_Service_Helper_Data extends Mage_Core_Helper_Abstract
 		}
 		return $this->_store;
 	}
+
+	public function paginate($array, $pageNumber, $pageSize) {
+    $start = $pageNumber * $pageSize;
+    return array_slice($array, $start, $pageSize);
+	}
 }
