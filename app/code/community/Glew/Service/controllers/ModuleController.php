@@ -192,6 +192,7 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $obj->glewPluginVersion = (string)Mage::getConfig()->getNode()->modules->Glew_Service->version;
             $obj->magentoVersion = (string)Mage::getVersion();
             $obj->phpVersion = (string)phpversion();
+            $obj->moduleEnabled = $this->_config['enabled'];
             $this->_sendResponse($obj);
         } catch(Exception $ex) {
             $this->_helper->logException($ex, 'version');

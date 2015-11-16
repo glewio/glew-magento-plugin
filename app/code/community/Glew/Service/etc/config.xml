@@ -2,7 +2,7 @@
 <config>
   <modules>
     <Glew_Service>
-      <version>1.0.11</version>
+      <version>1.0.12</version>
       <depends>
         <Mage_Shipping />
       </depends>

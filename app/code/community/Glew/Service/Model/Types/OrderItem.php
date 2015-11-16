@@ -1,9 +1,12 @@
-<?php 
+<?php
 
-class Glew_Service_Model_Types_OrderItem 
+class Glew_Service_Model_Types_OrderItem
 {
     public function parse($orderItem)
     {
+        if($orderItem->getParentItemId()) {
+            return;
+        }
         $this->order_item_id = $orderItem->getId();
         $this->order_id = $orderItem->getOrderId();
         $this->created_at = $orderItem->getCreatedAt();
@@ -17,12 +20,12 @@ class Glew_Service_Model_Types_OrderItem
         $this->brand = '';
         $this->website_names = '';
         $this->store = $orderItem->getOrder()->getStore()->getCode();
-        
+
         $this->qty_ordered = (int)$orderItem->getQtyOrdered();
         $this->qty_refunded = (int)$orderItem->getQtyRefunded();
         $this->qty_shipped = (int)$orderItem->getQtyShipped();
         $this->qty_backordered = (int)$orderItem->getQtyBackordered();
-        
+
         $this->price = round($orderItem->getPrice(), 2);
         $this->original_price = round($orderItem->getOriginalPrice(), 2);
         $this->cost = round($orderItem->getCost(), 2);
@@ -31,7 +34,7 @@ class Glew_Service_Model_Types_OrderItem
         $this->tax_amount = round($orderItem->getTaxAmount(), 2);
         $this->discount_percent = round($orderItem->getDiscountPercent(), 2);
         $this->discount_amount = round($orderItem->getDiscountAmount(), 2);
-        
+
         $this->weight = round($orderItem->getWeight(), 2);
         $this->row_weight = round($orderItem->getRowWeight(), 2);
         $this->additional_data = $orderItem->getAdditionalData();
@@ -60,7 +63,7 @@ class Glew_Service_Model_Types_OrderItem
         }
 
     }
-    
+
     protected function _getProductCategories($product)
     {
     	$maxlevel = 0;
@@ -82,4 +85,3 @@ class Glew_Service_Model_Types_OrderItem
     	}
     }
 }
-
