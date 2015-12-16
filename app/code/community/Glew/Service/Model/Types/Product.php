@@ -11,35 +11,39 @@ class Glew_Service_Model_Types_Product
         $this->attribute_set_id = $product->getData('attribute_set_id');
         $this->type_id = $product->getData('type_id');
 
-        foreach ( $productAttributes as $field => $usesSource){
-            $value = $product->getData($field);
-            if(is_array($value) || is_object($value)){
-                continue;
-            }
-
-            if($field == 'image' && $value) {
-                $imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $value;
-                $this->$field = $imageUrl;
-                continue;
-            }
-
-            if ($usesSource) {
-                $option = $product->getAttributeText($field);
-                if ($value && empty($option) && $option != '0') {
+        foreach ( $productAttributes as $field => $usesSource) {
+            try {
+                $value = $product->getData($field);
+                if(is_array($value) || is_object($value)){
                     continue;
                 }
-                if (is_array($option)) {
-                    $value = implode(',', $option);
-                } else {
-                    $value = $option;
-                }
-            }
-            if($field == 'category_ids'){
-                $value = $product->getCategoryIds();
-            }
 
-    		$this->$field = $value;
-    	}
+                if($field == 'image' && $value) {
+                    $imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $value;
+                    $this->$field = $imageUrl;
+                    continue;
+                }
+
+                if ($usesSource) {
+                    $option = $product->getAttributeText($field);
+                    if ($value && empty($option) && $option != '0') {
+                        continue;
+                    }
+                    if (is_array($option)) {
+                        $value = implode(',', $option);
+                    } else {
+                        $value = $option;
+                    }
+                }
+                if($field == 'category_ids'){
+                    $value = $product->getCategoryIds();
+                }
+
+                $this->$field = $value;
+            } catch(Exception $e) {
+                continue;
+            }
+        }
 
         return $this;
     }
