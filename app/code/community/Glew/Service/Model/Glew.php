@@ -2,7 +2,6 @@
 
 class Glew_Service_Model_Glew
 {
-
     private $_helper;
     private $_config;
 
@@ -15,7 +14,7 @@ class Glew_Service_Model_Glew
     private function _isGenerated()
     {
         $securityToken = $this->_config['security_token'];
+
         return !empty($securityToken);
     }
-
 }
