@@ -8,6 +8,7 @@ class Glew_Service_Block_SecretKey extends Mage_Adminhtml_Block_System_Config_Fo
         $helper = Mage::helper('glew');
         $config = $helper->getConfig();
         $token = $config['security_token'];
+
         return trim($token);
     }
 }

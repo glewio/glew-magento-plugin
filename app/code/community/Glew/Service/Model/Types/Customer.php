@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-class Glew_Service_Model_Types_Customer 
+class Glew_Service_Model_Types_Customer
 {
     public function parse($customer)
     {
@@ -18,9 +18,9 @@ class Glew_Service_Model_Types_Customer
         $this->name = $customer->getName();
         $this->first_name = $customer->getFirstname();
         $this->last_name = $customer->getLastname();
-        $this->gender = (!!$customer->getGender()) ? $customer->getGender() : "";
-        $this->dob = (!!$customer->getDob()) ? Mage::helper('glew')->formatDate($customer->getDob()) : "";
-        $this->store = (!!$customer->getStore()->getCode()) ? $customer->getStore()->getCode() : "";
+        $this->gender = ((bool) $customer->getGender()) ? $customer->getGender() : '';
+        $this->dob = ((bool) $customer->getDob()) ? Mage::helper('glew')->formatDate($customer->getDob()) : '';
+        $this->store = ((bool) $customer->getStore()->getCode()) ? $customer->getStore()->getCode() : '';
         $this->addresses = array();
 
         if ($customer->getPrimaryShippingAddress()) {
@@ -31,12 +31,11 @@ class Glew_Service_Model_Types_Customer
                 $address = Mage::getModel('glew/types_address')->parse($customer->getPrimaryBillingAddress());
                 $this->addresses[] = $address;
             }
-        }else{
-            $address =Mage::getModel('glew/types_address');
+        } else {
+            $address = Mage::getModel('glew/types_address');
             $this->addresses[] = $address;
         }
 
         return $this;
     }
-    
 }

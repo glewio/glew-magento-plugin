@@ -12,42 +12,44 @@ class Glew_Service_Model_Types_Products
         $config = $helper->getConfig();
         $this->pageNum = $pageNum;
         $this->_getProductAttribtues();
-        if($startDate && $endDate) {
+        if ($startDate && $endDate) {
             $from = date('Y-m-d 00:00:00', strtotime($startDate));
             $to = date('Y-m-d 23:59:59', strtotime($endDate));
 
             $products = Mage::getModel('catalog/product')->getCollection()->addAttributeToSelect('*')
-                ->addAttributeToFilter($filterBy, array('from'=>$from, 'to'=>$to));
+                ->addAttributeToFilter($filterBy, array('from' => $from, 'to' => $to));
         } else {
             $products = Mage::getModel('catalog/product')->getCollection()->addAttributeToSelect('*');
         }
+        $products->setVisibility(null);
         $products->setStoreId($helper->getStore()->getStoreId());
         $products->setOrder('updated_at', $sortDir);
         $products->setCurPage($pageNum);
         $products->setPageSize($pageSize);
 
-    	  if($products->getLastPageNumber() < $pageNum){
-    		    return $this;
+        if ($products->getLastPageNumber() < $pageNum) {
+            return $this;
         }
 
-        foreach($products as $product) {
+        foreach ($products as $product) {
             $productId = $product->getId();
             $model = Mage::getModel('glew/types_product')->parse($productId, $this->productAttributes);
-        	   if($model) {
-                 $model->cross_sell_products = $this->_getCrossSellProducts($product);
-                 $model->up_sell_products = $this->_getUpSellProducts($product);
-                 $model->related_products = $this->_getRelatedProducts($product);
-                 $this->products[] = $model;
+            if ($model) {
+                $model->cross_sell_products = $this->_getCrossSellProducts($product);
+                $model->up_sell_products = $this->_getUpSellProducts($product);
+                $model->related_products = $this->_getRelatedProducts($product);
+                $this->products[] = $model;
             }
         }
+
         return $this;
     }
 
     protected function _getProductAttribtues()
     {
-        if(!$this->productAttributes){
+        if (!$this->productAttributes) {
             $attributes = Mage::getResourceModel('catalog/product_attribute_collection')->getItems();
-            foreach ($attributes as $attribute){
+            foreach ($attributes as $attribute) {
                 if (!$attribute) {
                     continue;
                 }
@@ -60,11 +62,12 @@ class Glew_Service_Model_Types_Products
     {
         $productArray = array();
         $collection = $product->getCrossSellProductCollection();
-        if($collection) {
-            foreach($collection as $item) {
+        if ($collection) {
+            foreach ($collection as $item) {
                 $productArray[] = $item->getId();
             }
         }
+
         return $productArray;
     }
 
@@ -72,11 +75,12 @@ class Glew_Service_Model_Types_Products
     {
         $productArray = array();
         $collection = $product->getUpSellProductCollection();
-        if($collection) {
-            foreach($collection as $item) {
+        if ($collection) {
+            foreach ($collection as $item) {
                 $productArray[] = $item->getId();
             }
         }
+
         return $productArray;
     }
 
@@ -84,11 +88,12 @@ class Glew_Service_Model_Types_Products
     {
         $productArray = array();
         $collection = $product->getRelatedProductCollection();
-        if($collection) {
-            foreach($collection as $item) {
+        if ($collection) {
+            foreach ($collection as $item) {
                 $productArray[] = $item->getId();
             }
         }
+
         return $productArray;
     }
 }

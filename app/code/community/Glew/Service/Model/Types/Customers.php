@@ -10,12 +10,12 @@ class Glew_Service_Model_Types_Customers
         $helper = Mage::helper('glew');
         $config = $helper->getConfig();
         $this->pageNum = $pageNum;
-        if($startDate && $endDate) {
+        if ($startDate && $endDate) {
             $from = date('Y-m-d 00:00:00', strtotime($startDate));
             $to = date('Y-m-d 23:59:59', strtotime($endDate));
 
             $collection = Mage::getModel('customer/customer')->getCollection()
-                ->addAttributeToFilter($filterBy, array('from'=>$from, 'to'=>$to));
+                ->addAttributeToFilter($filterBy, array('from' => $from, 'to' => $to));
         } else {
             $collection = Mage::getModel('customer/customer')->getCollection();
         }
@@ -24,10 +24,10 @@ class Glew_Service_Model_Types_Customers
         $collection->setCurPage($pageNum);
         $collection->setPageSize($pageSize);
 
-        if($collection->getLastPageNumber() < $pageNum){
-          return $this;
+        if ($collection->getLastPageNumber() < $pageNum) {
+            return $this;
         }
-        foreach($collection as $customer) {
+        foreach ($collection as $customer) {
             $customer = Mage::getModel('customer/customer')->load($customer->getId());
             if ($customer && $customer->getId()) {
                 $model = Mage::getModel('glew/types_customer')->parse($customer);
@@ -39,5 +39,4 @@ class Glew_Service_Model_Types_Customers
 
         return $this;
     }
-
 }

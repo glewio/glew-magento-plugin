@@ -4,10 +4,9 @@ class Glew_Service_Model_Types_AbandonedCart
 {
     public function parse($cart)
     {
-
         $products = array();
 
-        foreach($cart->getAllItems() as $item) {
+        foreach ($cart->getAllItems() as $item) {
             $obj = new stdClass();
             $obj->product_id = $item->getProduct()->getId();
             $obj->qty = $item->getQty();
@@ -18,7 +17,7 @@ class Glew_Service_Model_Types_AbandonedCart
         $this->email = $cart->getCustomerEmail();
         $this->customer_id = $cart->getCustomerId() ? $cart->getCustomerId() : 0;
         $this->customer_group_id = $cart->getCustomerGroupId() ? $cart->getCustomerGroupId() : null;
-        $customerGroup = Mage::getModel('customer/group')->load( $cart->getCustomerGroupId() );
+        $customerGroup = Mage::getModel('customer/group')->load($cart->getCustomerGroupId());
         $this->customer_group = $customerGroup->getCode();
         $this->created_at = $cart->getCreatedAt();
         $this->updated_at = $cart->getUpdatedAt();
@@ -37,5 +36,4 @@ class Glew_Service_Model_Types_AbandonedCart
 
         return $this;
     }
-
 }

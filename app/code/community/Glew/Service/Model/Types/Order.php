@@ -9,14 +9,14 @@ class Glew_Service_Model_Types_Order
         $this->increment_id = $order->getIncrementId();
         $this->customer_id = $order->getCustomerId() ? $order->getCustomerId() : 0;
         $this->customer_group_id = $order->getCustomerGroupId() ? $order->getCustomerGroupId() : null;
-        $customerGroup = Mage::getModel('customer/group')->load( $order->getCustomerGroupId() );
+        $customerGroup = Mage::getModel('customer/group')->load($order->getCustomerGroupId());
         $this->customer_group = $customerGroup->getCode();
         $this->created_at = $order->getCreatedAt();
         $this->updated_at = $order->getUpdatedAt();
         $this->state = $order->getState();
         $this->status = $order->getStatus();
         $this->customer_is_guest = $order->getCustomerIsGuest();
-        $this->total_qty_ordered = (int)$order->getTotalQtyOrdered();
+        $this->total_qty_ordered = (int) $order->getTotalQtyOrdered();
         $this->currency = $order->getOrderCurrencyCode();
         $this->total = round($order->getGrandTotal(), 2);
         $this->tax = round($order->getTaxAmount(), 2);
@@ -33,5 +33,4 @@ class Glew_Service_Model_Types_Order
 
         return $this;
     }
-
 }

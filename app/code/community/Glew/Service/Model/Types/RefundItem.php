@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Glew_Service_Model_Types_RefundItem
 {
@@ -17,5 +17,4 @@ class Glew_Service_Model_Types_RefundItem
 
         return $this;
     }
-
 }

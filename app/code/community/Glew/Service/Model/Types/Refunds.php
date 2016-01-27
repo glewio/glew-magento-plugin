@@ -10,12 +10,12 @@ class Glew_Service_Model_Types_Refunds
         $helper = Mage::helper('glew');
         $config = $helper->getConfig();
         $this->pageNum = $pageNum;
-        if($startDate && $endDate) {
+        if ($startDate && $endDate) {
             $from = date('Y-m-d 00:00:00', strtotime($startDate));
             $to = date('Y-m-d 23:59:59', strtotime($endDate));
 
             $refunds = Mage::getResourceModel('sales/order_creditmemo_collection')
-                ->addAttributeToFilter($filterBy, array('from'=>$from, 'to'=>$to));
+                ->addAttributeToFilter($filterBy, array('from' => $from, 'to' => $to));
         } else {
             $refunds = Mage::getResourceModel('sales/order_creditmemo_collection');
         }
@@ -24,17 +24,17 @@ class Glew_Service_Model_Types_Refunds
         $refunds->setCurPage($pageNum);
         $refunds->setPageSize($pageSize);
 
-    	  if($refunds->getLastPageNumber() < $pageNum){
-    		    return $this;
+        if ($refunds->getLastPageNumber() < $pageNum) {
+            return $this;
         }
 
-        foreach ($refunds as $refund){
-        	$model = Mage::getModel('glew/types_refund')->parse($refund);
-        	if ($model) {
-        		$this->refunds[] = $model;
-        	}
+        foreach ($refunds as $refund) {
+            $model = Mage::getModel('glew/types_refund')->parse($refund);
+            if ($model) {
+                $this->refunds[] = $model;
+            }
         }
+
         return $this;
     }
-
 }

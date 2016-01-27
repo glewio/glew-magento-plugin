@@ -11,11 +11,11 @@ class Glew_Service_Model_Types_Orders
         $config = $helper->getConfig();
         $this->pageNum = $pageNum;
 
-        if($startDate && $endDate) {
+        if ($startDate && $endDate) {
             $from = date('Y-m-d 00:00:00', strtotime($startDate));
             $to = date('Y-m-d 23:59:59', strtotime($endDate));
             $collection = Mage::getModel('sales/order')->getCollection()
-                ->addAttributeToFilter($filterBy, array('from'=>$from, 'to'=>$to));
+                ->addAttributeToFilter($filterBy, array('from' => $from, 'to' => $to));
         } else {
             $collection = Mage::getModel('sales/order')->getCollection();
         }
@@ -24,10 +24,10 @@ class Glew_Service_Model_Types_Orders
         $collection->setCurPage($pageNum);
         $collection->setPageSize($pageSize);
 
-        if($collection->getLastPageNumber() < $pageNum){
-          return $this;
+        if ($collection->getLastPageNumber() < $pageNum) {
+            return $this;
         }
-        foreach($collection as $order) {
+        foreach ($collection as $order) {
             if ($order && $order->getId()) {
                 $model = Mage::getModel('glew/types_order')->parse($order);
                 if ($model) {
@@ -38,5 +38,4 @@ class Glew_Service_Model_Types_Orders
 
         return $this;
     }
-
 }

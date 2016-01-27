@@ -11,15 +11,15 @@ class Glew_Service_Model_Types_Product
         $this->attribute_set_id = $product->getData('attribute_set_id');
         $this->type_id = $product->getData('type_id');
 
-        foreach ( $productAttributes as $field => $usesSource) {
+        foreach ($productAttributes as $field => $usesSource) {
             try {
                 $value = $product->getData($field);
-                if(is_array($value) || is_object($value)){
+                if (is_array($value) || is_object($value)) {
                     continue;
                 }
 
-                if($field == 'image' && $value) {
-                    $imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $value;
+                if ($field == 'image' && $value) {
+                    $imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'catalog/product'.$value;
                     $this->$field = $imageUrl;
                     continue;
                 }
@@ -35,17 +35,16 @@ class Glew_Service_Model_Types_Product
                         $value = $option;
                     }
                 }
-                if($field == 'category_ids'){
+                if ($field == 'category_ids') {
                     $value = $product->getCategoryIds();
                 }
 
                 $this->$field = $value;
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 continue;
             }
         }
 
         return $this;
     }
-
 }

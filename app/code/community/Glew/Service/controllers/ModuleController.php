@@ -15,34 +15,35 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
     {
         $this->_helper = Mage::helper('glew');
         $this->_config = $this->_helper->getConfig();
-        if (!!$pageSize = $this->getRequest()->getParam('page_size')) {
+        if ((bool) $pageSize = $this->getRequest()->getParam('page_size')) {
             $this->_pageSize = $pageSize;
         }
-        if (!!$pageNum = $this->getRequest()->getParam('page_num')) {
+        if ((bool) $pageNum = $this->getRequest()->getParam('page_num')) {
             $this->_pageNum = $pageNum;
         }
-        if (!!$startDate = $this->getRequest()->getParam('start_date')) {
+        if ((bool) $startDate = $this->getRequest()->getParam('start_date')) {
             $this->_startDate = $startDate;
-            if (!!$endDate = $this->getRequest()->getParam('end_date')) {
-              $this->_endDate = $endDate;
+            if ((bool) $endDate = $this->getRequest()->getParam('end_date')) {
+                $this->_endDate = $endDate;
             } else {
-              $this->_endDate = date("Y-m-d");
+                $this->_endDate = date('Y-m-d');
             }
-        } elseif (!!$updatedStartDate = $this->getRequest()->getParam('updated_start_date')) {
+        } elseif ((bool) $updatedStartDate = $this->getRequest()->getParam('updated_start_date')) {
             $this->_filterField = 'updated_at';
             $this->_startDate = $updatedStartDate;
-            if (!!$updatedEndDate = $this->getRequest()->getParam('updated_end_date')) {
+            if ((bool) $updatedEndDate = $this->getRequest()->getParam('updated_end_date')) {
                 $this->_endDate = $updatedEndDate;
             } else {
-              $this->_endDate = date("Y-m-d");
+                $this->_endDate = date('Y-m-d');
             }
         }
-        if (!!$sortDir = $this->getRequest()->getParam('sort_dir')) {
+        if ((bool) $sortDir = $this->getRequest()->getParam('sort_dir')) {
             $this->_sortDir = $sortDir;
         }
     }
 
-    public function gotoglewAction() {
+    public function gotoglewAction()
+    {
         $this->_redirectUrl('https://app.glew.io');
     }
 
@@ -52,8 +53,8 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $this->_initRequest();
             $collection = Mage::getModel('glew/types_abandonedCarts')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
-        } catch(Exception $e) {
-            if($e->getCode() != 401) {
+        } catch (Exception $e) {
+            if ($e->getCode() != 401) {
                 print_r($e);
             }
             $this->_helper->logException($e, 'abandonedCarts');
@@ -66,14 +67,13 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $this->_initRequest();
             $collection = Mage::getModel('glew/types_customers')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
-        } catch(Exception $e) {
-            if($e->getCode() != 401) {
+        } catch (Exception $e) {
+            if ($e->getCode() != 401) {
                 print_r($e);
             }
             $this->_helper->logException($e, 'customers');
         }
     }
-
 
     public function ordersAction()
     {
@@ -81,8 +81,8 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $this->_initRequest();
             $collection = Mage::getModel('glew/types_orders')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
-        } catch(Exception $e) {
-            if($e->getCode() != 401) {
+        } catch (Exception $e) {
+            if ($e->getCode() != 401) {
                 print_r($e);
             }
             $this->_helper->logException($e, 'orders');
@@ -95,8 +95,8 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $this->_initRequest();
             $collection = Mage::getModel('glew/types_orderItems')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
-        } catch(Exception $e) {
-            if($e->getCode() != 401) {
+        } catch (Exception $e) {
+            if ($e->getCode() != 401) {
                 print_r($e);
             }
             $this->_helper->logException($e, 'orderItems');
@@ -109,8 +109,8 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $this->_initRequest();
             $collection = Mage::getModel('glew/types_stores')->load($this->_pageSize, $this->_pageNum);
             $this->_sendResponse($collection);
-        } catch(Exception $e) {
-            if($e->getCode() != 401) {
+        } catch (Exception $e) {
+            if ($e->getCode() != 401) {
                 print_r($e);
             }
             $this->_helper->logException($e, 'stores');
@@ -123,8 +123,8 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $this->_initRequest();
             $collection = Mage::getModel('glew/types_subscribers')->load($this->_pageSize, $this->_pageNum, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
-        } catch(Exception $e) {
-            if($e->getCode() != 401) {
+        } catch (Exception $e) {
+            if ($e->getCode() != 401) {
                 print_r($e);
             }
             $this->_helper->logException($e, 'subscribers');
@@ -137,8 +137,8 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $this->_initRequest();
             $collection = Mage::getModel('glew/types_products')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
-        } catch(Exception $e) {
-            if($e->getCode() != 401) {
+        } catch (Exception $e) {
+            if ($e->getCode() != 401) {
                 print_r($e);
             }
             $this->_helper->logException($e, 'products');
@@ -151,8 +151,8 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $this->_initRequest();
             $collection = Mage::getModel('glew/types_productAlerts')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
-        } catch(Exception $e) {
-            if($e->getCode() != 401) {
+        } catch (Exception $e) {
+            if ($e->getCode() != 401) {
                 print_r($e);
             }
             $this->_helper->logException($e, 'productAlerts');
@@ -165,36 +165,35 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $this->_initRequest();
             $collection = Mage::getModel('glew/types_categories')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
-        } catch(Exception $e) {
-            if($e->getCode() != 401) {
+        } catch (Exception $e) {
+            if ($e->getCode() != 401) {
                 print_r($e);
             }
             $this->_helper->logException($e, 'categories');
         }
     }
 
-    public function inventoryAction() {
+    public function inventoryAction()
+    {
         try {
             $this->_initRequest();
             $collection = Mage::getModel('glew/types_inventory')->load($this->_pageSize, $this->_pageNum, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $this->_helper->logException($e, 'inventory');
         }
     }
-
-
 
     public function versionAction()
     {
         try {
             $obj = new stdClass();
-            $obj->glewPluginVersion = (string)Mage::getConfig()->getNode()->modules->Glew_Service->version;
-            $obj->magentoVersion = (string)Mage::getVersion();
-            $obj->phpVersion = (string)phpversion();
+            $obj->glewPluginVersion = (string) Mage::getConfig()->getNode()->modules->Glew_Service->version;
+            $obj->magentoVersion = (string) Mage::getVersion();
+            $obj->phpVersion = (string) phpversion();
             $obj->moduleEnabled = $this->_config['enabled'];
             $this->_sendResponse($obj);
-        } catch(Exception $ex) {
+        } catch (Exception $ex) {
             $this->_helper->logException($ex, 'version');
         }
     }
@@ -205,8 +204,8 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $this->_initRequest();
             $collection = Mage::getModel('glew/types_extensions')->load($this->_pageSize, $this->_pageNum, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
-        } catch(Exception $e) {
-            if($e->getCode() != 401) {
+        } catch (Exception $e) {
+            if ($e->getCode() != 401) {
                 print_r($e);
             }
             $this->_helper->logException($e, 'extensions');
@@ -219,8 +218,8 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $this->_initRequest();
             $collection = Mage::getModel('glew/types_refundItems')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
-        } catch(Exception $e) {
-            if($e->getCode() != 401) {
+        } catch (Exception $e) {
+            if ($e->getCode() != 401) {
                 print_r($e);
             }
             $this->_helper->logException($e, 'refund items');
@@ -233,14 +232,13 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $this->_initRequest();
             $collection = Mage::getModel('glew/types_refunds')->load($this->_pageSize, $this->_pageNum, $this->_startDate, $this->_endDate, $this->_sortDir, $this->_filterField);
             $this->_sendResponse($collection);
-        } catch(Exception $e) {
-            if($e->getCode() != 401) {
+        } catch (Exception $e) {
+            if ($e->getCode() != 401) {
                 print_r($e);
             }
             $this->_helper->logException($e, 'refunds');
         }
     }
-
 
     protected function _sendResponse($items)
     {
@@ -250,8 +248,9 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
 
     private function _initRequest()
     {
-        if(!$this->_config['enabled']) {
+        if (!$this->_config['enabled']) {
             $this->_reject();
+
             return true;
         }
 
@@ -259,12 +258,12 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
 
         $authToken = (isset($_SERVER['HTTP_X_GLEW_TOKEN']) ? $_SERVER['HTTP_X_GLEW_TOKEN'] : $_SERVER['X_GLEW_TOKEN']);
 
-        if(empty($authToken)) {
-          $this->_reject();
+        if (empty($authToken)) {
+            $this->_reject();
         }
 
-        if(trim( $token ) != trim($authToken)) {
-            $this->_helper->log('Glew feed request with invalid security token: ' . $authToken . ' compared to stored token: ' . $token);
+        if (trim($token) != trim($authToken)) {
+            $this->_helper->log('Glew feed request with invalid security token: '.$authToken.' compared to stored token: '.$token);
             $this->_reject();
         }
     }
@@ -274,5 +273,4 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
         $this->getResponse()->setHttpResponseCode(401)->setBody('Invalid security token or module disabled');
         throw new Exception('Invalid security token or module disabled', 401);
     }
-
 }

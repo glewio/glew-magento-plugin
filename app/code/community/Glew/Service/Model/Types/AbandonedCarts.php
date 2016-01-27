@@ -10,16 +10,16 @@ class Glew_Service_Model_Types_AbandonedCarts
         $helper = Mage::helper('glew');
         $config = $helper->getConfig();
         $this->pageNum = $pageNum;
-        if($startDate && $endDate) {
-	        $filter = array(
-	            'datetime' => 1,
-	            'locale' => 'en_US',
-	            'from' => new Zend_Date(strtotime($startDate), Zend_Date::TIMESTAMP),
-				      'to' => new Zend_Date(strtotime($endDate), Zend_Date::TIMESTAMP),
-			    );
+        if ($startDate && $endDate) {
+            $filter = array(
+                'datetime' => 1,
+                'locale' => 'en_US',
+                'from' => new Zend_Date(strtotime($startDate), Zend_Date::TIMESTAMP),
+                      'to' => new Zend_Date(strtotime($endDate), Zend_Date::TIMESTAMP),
+                );
 
-	        $collection = Mage::getResourceModel('reports/quote_collection')
-	            ->addFieldToFilter('main_table.' . $filterBy, $filter);
+            $collection = Mage::getResourceModel('reports/quote_collection')
+                ->addFieldToFilter('main_table.'.$filterBy, $filter);
         } else {
             $collection = Mage::getResourceModel('reports/quote_collection');
         }
@@ -29,11 +29,11 @@ class Glew_Service_Model_Types_AbandonedCarts
         $collection->setCurPage($pageNum);
         $collection->setPageSize($pageSize);
 
-        if($collection->getLastPageNumber() < $pageNum){
-          return $this;
+        if ($collection->getLastPageNumber() < $pageNum) {
+            return $this;
         }
 
-        foreach($collection as $cart) {
+        foreach ($collection as $cart) {
             if ($cart) {
                 $model = Mage::getModel('glew/types_abandonedCart')->parse($cart);
                 if ($model) {
@@ -44,5 +44,4 @@ class Glew_Service_Model_Types_AbandonedCarts
 
         return $this;
     }
-
 }

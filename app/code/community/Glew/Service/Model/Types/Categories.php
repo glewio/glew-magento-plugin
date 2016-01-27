@@ -16,30 +16,31 @@ class Glew_Service_Model_Types_Categories
             ->load($rootCategoryId)
             ->getPath();
 
-        if($startDate && $endDate) {
+        if ($startDate && $endDate) {
             $from = date('Y-m-d 00:00:00', strtotime($startDate));
             $to = date('Y-m-d 23:59:59', strtotime($endDate));
 
             $categories = Mage::getModel('catalog/category')->getCollection()
-                ->addAttributeToFilter($filterBy, array('from'=>$from, 'to'=>$to));
+                ->addAttributeToFilter($filterBy, array('from' => $from, 'to' => $to));
         } else {
             $categories = Mage::getModel('catalog/category')->getCollection();
         }
-        $categories->addAttributeToFilter('path', array("like"=>$rootpath."/"."%"));
+        $categories->addAttributeToFilter('path', array('like' => $rootpath.'/'.'%'));
         $categories->setOrder('created_at', $sortDir);
         $categories->setCurPage($pageNum);
         $categories->setPageSize($pageSize);
 
-    	  if($categories->getLastPageNumber() < $pageNum){
-    		    return $this;
+        if ($categories->getLastPageNumber() < $pageNum) {
+            return $this;
         }
 
-        foreach ($categories as $category){
-        	$model = Mage::getModel('glew/types_category')->parse($category);
-        	if ($model) {
-        		$this->categories[] = $model;
-        	}
+        foreach ($categories as $category) {
+            $model = Mage::getModel('glew/types_category')->parse($category);
+            if ($model) {
+                $this->categories[] = $model;
+            }
         }
+
         return $this;
     }
 }

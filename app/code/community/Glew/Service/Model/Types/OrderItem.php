@@ -4,9 +4,6 @@ class Glew_Service_Model_Types_OrderItem
 {
     public function parse($orderItem)
     {
-        if($orderItem->getParentItemId()) {
-            return;
-        }
         $this->order_item_id = $orderItem->getId();
         $this->order_id = $orderItem->getOrderId();
         $this->created_at = $orderItem->getCreatedAt();
@@ -21,10 +18,10 @@ class Glew_Service_Model_Types_OrderItem
         $this->website_names = '';
         $this->store = $orderItem->getOrder()->getStore()->getCode();
 
-        $this->qty_ordered = (int)$orderItem->getQtyOrdered();
-        $this->qty_refunded = (int)$orderItem->getQtyRefunded();
-        $this->qty_shipped = (int)$orderItem->getQtyShipped();
-        $this->qty_backordered = (int)$orderItem->getQtyBackordered();
+        $this->qty_ordered = (int) $orderItem->getQtyOrdered();
+        $this->qty_refunded = (int) $orderItem->getQtyRefunded();
+        $this->qty_shipped = (int) $orderItem->getQtyShipped();
+        $this->qty_backordered = (int) $orderItem->getQtyBackordered();
 
         $this->price = round($orderItem->getPrice(), 2);
         $this->original_price = round($orderItem->getOriginalPrice(), 2);
@@ -38,50 +35,51 @@ class Glew_Service_Model_Types_OrderItem
         $this->weight = round($orderItem->getWeight(), 2);
         $this->row_weight = round($orderItem->getRowWeight(), 2);
         $this->additional_data = $orderItem->getAdditionalData();
+
         return $this;
     }
 
     private function _getSelectAttributeLabel($attrCode, $value)
     {
         try {
-          $api = Mage::getSingleton('catalog/product_attribute_api');
-          $info = $api->info($attrCode);
-          if ($info) {
-            if (isset($info['options'])) {
-                foreach($info['options'] as $option) {
-                    $label = str_ireplace(' ', '', $option['label']);
-                    if ($option['value'] == $value) {
-                        return $label;
+            $api = Mage::getSingleton('catalog/product_attribute_api');
+            $info = $api->info($attrCode);
+            if ($info) {
+                if (isset($info['options'])) {
+                    foreach ($info['options'] as $option) {
+                        $label = str_ireplace(' ', '', $option['label']);
+                        if ($option['value'] == $value) {
+                            return $label;
+                        }
                     }
                 }
             }
-          }
-          return '';
-        } catch(Exception $ex) {
+
+            return '';
+        } catch (Exception $ex) {
             $helper = Mage::helper('glew');
             $helper->ex($ex, 'process');
         }
-
     }
 
     protected function _getProductCategories($product)
     {
-    	$maxlevel = 0;
-    	foreach($product->getCategoryIds() as $k => $categoryId) {
-    		$category = Mage::getModel('catalog/category')->
-    		load($categoryId);
-    		$level = $category->getLevel();
+        $maxlevel = 0;
+        foreach ($product->getCategoryIds() as $k => $categoryId) {
+            $category = Mage::getModel('catalog/category')->
+            load($categoryId);
+            $level = $category->getLevel();
 
-    		if($category->getLevel() > $maxlevel){
-    			while($level >= 2){
-    				$categoryK	= 'category'.($level - 1);
-    				if($level <= 4){
-    					$this->$categoryK = $category->getName();
-    				}
-    				$category = Mage::getModel('catalog/category')->load($category->parent_id);
-    				$level = $category->getLevel();
-    			}
-    		}
-    	}
+            if ($category->getLevel() > $maxlevel) {
+                while ($level >= 2) {
+                    $categoryK = 'category'.($level - 1);
+                    if ($level <= 4) {
+                        $this->$categoryK = $category->getName();
+                    }
+                    $category = Mage::getModel('catalog/category')->load($category->parent_id);
+                    $level = $category->getLevel();
+                }
+            }
+        }
     }
 }
