@@ -15,8 +15,8 @@ class Glew_Service_Model_Types_AbandonedCarts
                 'datetime' => 1,
                 'locale' => 'en_US',
                 'from' => new Zend_Date(strtotime($startDate), Zend_Date::TIMESTAMP),
-                      'to' => new Zend_Date(strtotime($endDate), Zend_Date::TIMESTAMP),
-                );
+                'to' => new Zend_Date(strtotime($endDate . ' + 1 day -1 second'), Zend_Date::TIMESTAMP),
+            );
 
             $collection = Mage::getResourceModel('reports/quote_collection')
                 ->addFieldToFilter('main_table.'.$filterBy, $filter);
