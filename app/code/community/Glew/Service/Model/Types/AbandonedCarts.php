@@ -5,12 +5,15 @@ class Glew_Service_Model_Types_AbandonedCarts
     public $carts = array();
     private $pageNum;
 
-    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir, $filterBy)
+    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir, $filterBy, $id)
     {
         $helper = Mage::helper('glew');
         $config = $helper->getConfig();
         $this->pageNum = $pageNum;
-        if ($startDate && $endDate) {
+        if($id) {
+            $collection = Mage::getResourceModel('reports/quote_collection')
+                ->addFieldToFilter('main_table.entity_id', $id);
+        } elseif ($startDate && $endDate) {
             $filter = array(
                 'datetime' => 1,
                 'locale' => 'en_US',

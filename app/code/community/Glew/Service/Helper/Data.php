@@ -57,8 +57,7 @@ class Glew_Service_Helper_Data extends Mage_Core_Helper_Abstract
 
     public function logException($ex, $msg)
     {
-        Mage::logException($ex);
-        Mage::log($msg.': '.$ex->getMessage(), null, self::$filename);
+        Mage::log(print_r($ex, true), null, self::$filename);
 
         return false;
     }
@@ -66,6 +65,10 @@ class Glew_Service_Helper_Data extends Mage_Core_Helper_Abstract
     public function log($msg)
     {
         return Mage::log($msg, null, self::$filename);
+    }
+
+    public function getLog() {
+        return Mage::getBaseDir('log') . DS . self::$filename;
     }
 
     public function getStore()

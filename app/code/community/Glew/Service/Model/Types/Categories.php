@@ -5,7 +5,7 @@ class Glew_Service_Model_Types_Categories
     public $categories = array();
     private $pageNum;
 
-    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir, $filterBy)
+    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir, $filterBy, $id)
     {
         $helper = Mage::helper('glew');
         $config = $helper->getConfig();
@@ -16,7 +16,10 @@ class Glew_Service_Model_Types_Categories
             ->load($rootCategoryId)
             ->getPath();
 
-        if ($startDate && $endDate) {
+        if ($id) {
+            $categories = Mage::getModel('catalog/category')->getCollection()
+                ->addAttributeToFilter('entity_id', $id);
+        } elseif ($startDate && $endDate) {
             $from = date('Y-m-d 00:00:00', strtotime($startDate));
             $to = date('Y-m-d 23:59:59', strtotime($endDate));
 

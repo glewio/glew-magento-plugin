@@ -5,12 +5,15 @@ class Glew_Service_Model_Types_ProductAlerts
     public $alerts = array();
     private $pageNum;
 
-    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir, $filterBy)
+    public function load($pageSize, $pageNum, $startDate = null, $endDate = null, $sortDir, $filterBy, $id)
     {
         $helper = Mage::helper('glew');
         $config = $helper->getConfig();
         $this->pageNum = $pageNum;
-        if ($startDate && $endDate) {
+        if ($id) {
+            $alerts = Mage::getModel('productalert/stock')->getCollection()
+                ->addFilter('alert_stock_id', $id);
+        } elseif ($startDate && $endDate) {
             $condition = "add_date BETWEEN '".date('Y-m-d 00:00:00', strtotime($startDate))."' AND '".date('Y-m-d 23:59:59', strtotime($endDate))."'";
             $alerts = Mage::getModel('productalert/stock')->getCollection()
                 ->addFilter('add_date', $condition, 'string');

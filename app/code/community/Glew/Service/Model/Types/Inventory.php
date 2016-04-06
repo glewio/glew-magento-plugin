@@ -5,12 +5,18 @@ class Glew_Service_Model_Types_Inventory
     public $inventory = array();
     private $pageNum;
 
-    public function load($pageSize, $pageNum, $sortDir, $filterBy)
+    public function load($pageSize, $pageNum, $sortDir, $filterBy, $id)
     {
         $helper = Mage::helper('glew');
         $config = $helper->getConfig();
         $this->pageNum = $pageNum;
-        $inventory = Mage::getModel('catalog/product')->getCollection()->addAttributeToSelect('*');
+        if ($id) {
+            $inventory = Mage::getModel('catalog/product')->getCollection()
+                ->addAttributeToSelect('*')
+                ->addAttributeToFilter('entity_id', $id);
+        } else {
+            $inventory = Mage::getModel('catalog/product')->getCollection()->addAttributeToSelect('*');
+        }
         $inventory->setOrder('entity_id', $sortDir);
         $inventory->setCurPage($pageNum);
         $inventory->setPageSize($pageSize);

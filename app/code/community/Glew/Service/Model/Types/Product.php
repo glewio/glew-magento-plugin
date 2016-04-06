@@ -10,6 +10,7 @@ class Glew_Service_Model_Types_Product
         $this->entity_type_id = $product->getData('entity_type_id');
         $this->attribute_set_id = $product->getData('attribute_set_id');
         $this->type_id = $product->getData('type_id');
+        $this->category_ids = $product->getCategoryIds();
 
         foreach ($productAttributes as $field => $usesSource) {
             try {
@@ -36,7 +37,7 @@ class Glew_Service_Model_Types_Product
                     }
                 }
                 if ($field == 'category_ids') {
-                    $value = $product->getCategoryIds();
+                    continue;
                 }
 
                 $this->$field = $value;
