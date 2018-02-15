@@ -267,6 +267,8 @@ class Glew_Service_ModuleController extends Mage_Core_Controller_Front_Action
             $obj->magentoVersion = (string) Mage::getVersion();
             $obj->phpVersion = (string) phpversion();
             $obj->moduleEnabled = $this->_config['enabled'];
+            $obj->memoryLimit = @ini_get('memory_limit');
+            $obj->maxExecutionTime = @ini_get('max_execution_time');
             $this->_sendResponse($obj);
         } catch (Exception $ex) {
             $this->_helper->logException($ex, 'version');
