@@ -38,7 +38,7 @@ class Glew_Service_Helper_Data extends Mage_Core_Helper_Abstract
     public function formatDate($str)
     {
         if ($str) {
-            if (stripos($str, ' ')) {
+            if (stripos($str, ' ') !== false) {
                 $str = substr($str, 0, stripos($str, ' '));
             }
         }
