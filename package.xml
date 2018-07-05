@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<package>
+    <name>GlewEcommerceAnalytics</name>
+    <version>1.0.24</version>
+    <stability>stable</stability>
+    <license uri="https://www.gnu.org/licenses/gpl.html">GPL v3</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Glew and Glew Enterprise deliver business intelligence, alerts and automation to help you generate more revenue, cultivate loyal customers, optimize product strategy and drive profitability.</summary>
+    <description>Product Analytics&#xD;
+Transform data from your ecommerce platform into actionable insights that help you manage inventory, make pricing decisions, understand seasonal buying trends, and increase your bottom line. Spend less time exporting and organizing product sales data and more time executing strategies to meet your business goals.&#xD;
+&#xD;
+Measure and analyze performance across product categories, segments, and individual SKUs.&#xD;
+Increase average order value with actionable product bundling recommendations.&#xD;
+Get a detailed picture of which products are most profitable and which are hurting your bottom line.&#xD;
+Maximize the value of your product data with advanced analytics and reporting tools designed specifically for online retailers.&#xD;
+Cost Of Goods Sold Reporting&#xD;
+Avoid ecommerce blind spots created by a lack of Cost of Goods Sold (COGS) analytics. When you assign cost information to individual products in Glew, we automatically connect that data to your ecommerce reports and analytics dashboards. This helps you make better-informed marketing and pricing decisions while ensuring you have enough margin to cover operating expenses.&#xD;
+&#xD;
+Monitor gross margin and a variety of ecommerce KPIs that rely on Cost of Goods Sold data.&#xD;
+Easily determine if you are spending too much money marketing low gross margin items.&#xD;
+Quickly act on opportunities to allocate more ad spend to high margin products.&#xD;
+Get a clearer picture of how to improve performance and increase gross profit.&#xD;
+Customer Analytics&#xD;
+One of the most important indicators of profit potential is the lifetime value (LTV) of a customer. Yet customer lifetime value is one of the hardest metrics for ecommerce stores to calculate. Glew automatically calculates customer lifetime value, repeat customer rate, and several other customer-centric KPIs &#x2013; delivering insights that help you understand and optimize purchase behavior.&#xD;
+&#xD;
+Discover which channels and campaigns generate the highest customer lifetime value and have the lowest customer acquisition cost.&#xD;
+Receive and act on valuable insights regarding customer purchase behavior, lifetime value, and more.&#xD;
+Optimize marketing spend for profitability with advanced customer analytics at multiple levels of granularity.&#xD;
+Leverage more than 20 unique customer segments in your email campaigns and advertising efforts by easily exporting segments as lists.</description>
+    <notes>Coupon Code Integration</notes>
+    <authors><author><name>Glew.io</name><user>magento</user><email>ryan.fink@glew.io</email></author></authors>
+    <date>2018-07-05</date>
+    <time>17:52:36</time>
+    <contents><target name="magecommunity"><dir name="Glew"><dir name="Service"><dir name="Block"><dir name="Adminhtml"><dir name="Widget"><dir name="Info"><file name="Info.php" hash="d1985f12bdb9d8b01e5492d72d7787af"/></dir></dir></dir><file name="SecretKey.php" hash="2764c406fd54722b0ad11344e9cd5245"/><file name="StoreUrl.php" hash="96ce8a8ad5921a722108ad426a025098"/></dir><dir name="Helper"><file name="Data.php" hash="92f35a0a8a417c2454f7a0659e874f61"/></dir><dir name="Model"><file name="Glew.php" hash="0d21af152e4dfe948773decfcb869410"/><dir name="Resource"><file name="Setup.php" hash="1608ab53c5846ff80b1413693ad2657e"/></dir><dir name="Types"><file name="AbandonedCart.php" hash="ef02b1871d4f5bc42f8d301403c2e8e0"/><file name="AbandonedCarts.php" hash="f87b5586fbb45b1d16db214a3437e978"/><file name="Address.php" hash="787f7255857daf035e61da9d65eaa829"/><file name="Categories.php" hash="df8ff56d973f4c3771da63f4cdd504d1"/><file name="Category.php" hash="eaef5ed2206454edaafe08ebd3a402b7"/><file name="Customer.php" hash="2789987f555d9665539b2f6ce6b17826"/><file name="Customers.php" hash="6a1172381f76053cf26a4b570ac4adae"/><file name="Extension.php" hash="c85c42c2deaa1ef00a3472edbbd20022"/><file name="Extensions.php" hash="b1cfca39c8565c21c523e3b4746ad72e"/><file name="Inventory.php" hash="b69c94cd4bcb0992f96a23ae0a2a84f8"/><file name="InventoryItem.php" hash="5d5ea68ee51126700b2fd06696df72e9"/><file name="Order.php" hash="41bfbac59ecdc93dc1291332a6744b13"/><file name="OrderItem.php" hash="2eab209ee5155c41d746fd1163bb5305"/><file name="OrderItems.php" hash="c71c8cbcb32f2108626a617e8abb6b0f"/><file name="Orders.php" hash="ad6072eaefe6f1bb078e8bf14457ac15"/><file name="Product.php" hash="5cd49721b06ad2679be10bcc4939ed49"/><file name="ProductAlert.php" hash="528614edb71267ac8fcbeb27f6a3fa8e"/><file name="ProductAlerts.php" hash="a095a38284c24966d2fc262c85fc3fce"/><file name="Products.php" hash="36da2c7084a28c423465a7ff7646d681"/><file name="Refund.php" hash="01eb35a9776199cef392dc89ca192962"/><file name="RefundItem.php" hash="6e189040dcea8cff09f79f94b45ce124"/><file name="RefundItems.php" hash="adaeb426536f95aefb45a789f4b4fc18"/><file name="Refunds.php" hash="49906cc97028e4c25ff4bebe3f8447e7"/><file name="Store.php" hash="675d0b04a58fd99ba4dbf9909d73d383"/><file name="Stores.php" hash="559c264e39268e41b7bae045b55ccfe4"/><file name="Subscriber.php" hash="ca64e1aef176a3500b3cc73f7858a0f9"/><file name="Subscribers.php" hash="de15c0e0777c6b9f4c2d81843d8c435f"/></dir></dir><dir name="controllers"><file name="ModuleController.php" hash="4a1c109935ec8fdd441e5559a628a194"/></dir><dir name="etc"><file name="adminhtml.xml" hash="aa51641095e1b463b7f79d0547b1a138"/><file name="config.xml" hash="db6178c10d8a6134fdff1dc04d0678a4"/><file name="system.xml" hash="81930f4ddccea6beababbff98a25fbc0"/></dir><dir name="sql"><dir name="glew_setup"><file name="mysql4-install-1.0.0.php" hash="7ed236c212af05bae2117467a6090ead"/></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Glew_Service.xml" hash="621eb8459c76a8ab74f1255ceed4c040"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.4.0</min><max>5.6.0</max></php></required></dependencies>
+</package>
