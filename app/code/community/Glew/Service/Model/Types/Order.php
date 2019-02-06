@@ -18,7 +18,8 @@ class Glew_Service_Model_Types_Order
         $this->customer_is_guest = $order->getCustomerIsGuest();
         $this->total_qty_ordered = (int) $order->getTotalQtyOrdered();
         $this->currency = $order->getOrderCurrencyCode();
-        $this->total = round($order->getBaseGrandTotal(), 2);
+        $this->base_currency_total = round($order->getBaseGrandTotal(), 2);
+        $this->total = round($order->getGrandTotal(), 2);
         $this->tax = round($order->getTaxAmount(), 2);
         $this->shipping_total = round($order->getShippingAmount(), 2);
         $this->shipping_tax = round($order->getShippingTaxAmount(), 2);
