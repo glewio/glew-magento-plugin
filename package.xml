@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
     <name>GlewEcommerceAnalytics</name>
-    <version>1.0.24</version>
+    <version>1.0.25</version>
     <stability>stable</stability>
     <license uri="https://www.gnu.org/licenses/gpl.html">GPL v3</license>
     <channel>community</channel>
